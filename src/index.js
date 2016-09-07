@@ -43,6 +43,10 @@ class AutoComplete extends React.Component {
      *
      */
     children: React.PropTypes.node,
+    /**
+     *
+     */
+    limit: React.PropTypes.number,
   };
 
   static defaultProps = {
@@ -58,6 +62,7 @@ class AutoComplete extends React.Component {
       </div>
     ),
     renderSuggestions: suggestions => <div>{suggestions}</div>,
+    limit: 15,
   };
 
   state = {
@@ -67,7 +72,7 @@ class AutoComplete extends React.Component {
   };
 
   handleInput = event => {
-    const { children } = this.props;
+    const { children, limit } = this.props;
     const { value, selectionEnd } = event.target;
     const completingValue = value.slice(0, selectionEnd);
 
@@ -88,7 +93,12 @@ class AutoComplete extends React.Component {
 
     const currentSuggestions = completionTypes.reduce((available, childProps) => {
       const { type, matchingValue } = childProps;
-      const completions = type.getCompletions(matchingValue, type);
+      const currentLimit = limit - available.length;
+      // Don't even ask for more completions if we've already reached our max.
+      if (currentLimit <= 0) {
+        return available;
+      }
+      const completions = type.getCompletions(matchingValue, type).slice(0, currentLimit);
       return [
         ...available,
         ...completions.map(completion => assign({ completion }, childProps)),
