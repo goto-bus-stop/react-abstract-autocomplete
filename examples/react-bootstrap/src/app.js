@@ -1,0 +1,49 @@
+import * as React from 'react';
+import { render } from 'react-dom';
+import AutoComplete, { Completion } from 'react-abstract-autocomplete';
+import Grid from 'react-bootstrap/lib/Grid';
+import Row from 'react-bootstrap/lib/Row';
+import Col from 'react-bootstrap/lib/Col';
+import PageHeader from 'react-bootstrap/lib/PageHeader';
+import FormControl from 'react-bootstrap/lib/FormControl';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
+import { users } from '../../exampleData';
+
+// eslint-disable-next-line react/prop-types
+const renderSuggestion = ({ key, selected, label }) => (
+  <MenuItem key={key} active={selected}>{label}</MenuItem>
+);
+
+const renderSuggestions = suggestions => (
+  <div className="dropdown open">
+    <ul className="dropdown-menu">{suggestions}</ul>
+  </div>
+);
+
+// eslint-disable-next-line react/prefer-stateless-function
+class App extends React.Component {
+  render() {
+    return (
+      <Grid>
+        <Row>
+          <Col sm={12}>
+            <PageHeader>React-Bootstrap example</PageHeader>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={12}>
+            <AutoComplete
+              inputComponent={props => <FormControl type="text" {...props} />}
+              renderSuggestion={renderSuggestion}
+              renderSuggestions={renderSuggestions}
+            >
+              <Completion trigger="@" completions={users} />
+            </AutoComplete>
+          </Col>
+        </Row>
+      </Grid>
+    );
+  }
+}
+
+render(<App />, document.querySelector('#app'));
