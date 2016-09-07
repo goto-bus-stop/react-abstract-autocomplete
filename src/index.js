@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Completion from './Completion';
 import escapeStringRegExp from 'escape-string-regexp';
-import assign from 'object-assign';
 
 function getRegex({ regex, trigger }) {
   if (regex) {
@@ -101,7 +100,10 @@ class AutoComplete extends React.Component {
       const completions = type.getCompletions(matchingValue, type).slice(0, currentLimit);
       return [
         ...available,
-        ...completions.map(completion => assign({ completion }, childProps)),
+        ...completions.map(completion => ({
+          completion,
+          ...childProps
+        })),
       ];
     }, []);
 
