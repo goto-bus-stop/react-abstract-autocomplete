@@ -4,9 +4,9 @@ import AutoComplete, { Completion } from 'react-abstract-autocomplete';
 import { users } from '../../exampleData';
 
 // eslint-disable-next-line react/prop-types
-const renderSuggestion = ({ key, selected, label, select }) => (
+const renderSuggestion = ({ key, selected, value, select }) => (
   <li key={key} className={selected ? 'active' : ''}>
-    <a href="#" onClick={select}>{label}</a>
+    <a href="#" onClick={select}>{value}</a>
   </li>
 );
 

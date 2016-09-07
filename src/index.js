@@ -51,13 +51,13 @@ class AutoComplete extends React.Component {
   static defaultProps = {
     inputComponent: 'input',
     inputProps: {},
-    renderSuggestion: ({ key, label, selected, select }) => (
+    renderSuggestion: ({ key, value, selected, select }) => (
       <div
         key={key}
         style={{ fontWeight: selected ? 'bold' : 'normal' }}
         onClick={select}
       >
-        {label}
+        {value}
       </div>
     ),
     renderSuggestions: suggestions => <div>{suggestions}</div>,
@@ -164,9 +164,8 @@ class AutoComplete extends React.Component {
     // doesn't have a custom one.
     const render = type.renderSuggestion || this.props.renderSuggestion;
     return render({
-      label: completion,
       key: `${idx}`,
-      value: `${idx}`,
+      value: completion,
       selected: idx === selectedSuggestion,
       select: () => this.select(idx),
     });

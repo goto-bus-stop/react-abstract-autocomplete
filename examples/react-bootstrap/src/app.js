@@ -10,8 +10,8 @@ import MenuItem from 'react-bootstrap/lib/MenuItem';
 import { users } from '../../exampleData';
 
 // eslint-disable-next-line react/prop-types
-const renderSuggestion = ({ key, selected, label }) => (
-  <MenuItem key={key} active={selected}>{label}</MenuItem>
+const renderSuggestion = ({ key, selected, value }) => (
+  <MenuItem key={key} active={selected}>{value}</MenuItem>
 );
 
 const renderSuggestions = suggestions => (
