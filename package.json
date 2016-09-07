@@ -2,7 +2,7 @@
   "name": "react-abstract-autocomplete",
   "version": "0.0.0",
   "description": "Bring-Your-Own-UI autocomplete component for React.",
-  "main": "lib/index.js",
+  "main": "lib/rollup.js",
   "scripts": {
     "prepublish": "npm run build",
     "build": "gulp",
