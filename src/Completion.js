@@ -15,6 +15,10 @@ class Completion extends React.Component {
     /**
      *
      */
+    minLength: React.PropTypes.number,
+    /**
+     *
+     */
     regex: React.PropTypes.instanceOf(RegExp),
     /**
      *
@@ -35,6 +39,7 @@ class Completion extends React.Component {
   };
 
   static defaultProps = {
+    minLength: 3,
     getCompletions: (value, { trigger, completions }) => {
       const compare = value.substr(trigger.length).toLowerCase();
       return completions.filter(completion => (

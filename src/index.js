@@ -81,11 +81,14 @@ class AutoComplete extends React.Component {
         const rx = getRegex(completionType);
         const match = rx.exec(completingValue);
         if (match) {
-          types.push({
-            type: completionType,
-            regex: rx,
-            matchingValue: match[1] || match[0],
-          });
+          const matchingValue = match[1] || match[0];
+          if (matchingValue.length >= completionType.minLength) {
+            types.push({
+              type: completionType,
+              regex: rx,
+              matchingValue,
+            });
+          }
         }
         return types;
       }, []);
