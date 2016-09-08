@@ -14,6 +14,21 @@ injectTapEventPlugin();
 
 const emojiNames = Object.keys(emojione.emojioneList);
 
+function getStyles(theme, isDark) {
+  return {
+    wrapper: {
+      background: isDark ? '#222' : '#ddd',
+      width: '100%',
+      height: '100%',
+      padding: 20,
+    },
+    header: {
+      font: '16pt roboto, sans-serif',
+      color: theme.palette.textColor,
+    },
+  };
+}
+
 class App extends React.Component {
   state = {
     theme: lightBaseTheme,
@@ -30,9 +45,11 @@ class App extends React.Component {
   };
 
   render() {
+    const styles = getStyles(this.state.theme, this.isDark);
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(this.state.theme)}>
-        <div style={{ background: this.isDark ? '#222' : '#ddd' }}>
+        <div style={styles.wrapper}>
+          <h1 style={styles.header}>Material-ui example</h1>
           <div>
             <RaisedButton label="Change theme" onClick={this.switchTheme} />
           </div>

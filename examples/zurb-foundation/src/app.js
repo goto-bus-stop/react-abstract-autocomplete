@@ -20,7 +20,12 @@ const App = () => (
           <ul className="vertical menu">{suggestions}</ul>
         )}
       >
-        <Completion trigger="@" completions={users} />
+        <Completion
+          trigger="@"
+          completions={users}
+          minLength={1}
+          getText={name => `User: ${name} `}
+        />
       </AutoComplete>
     </div>
   </div>

@@ -28,7 +28,7 @@ module.exports = {
 
   devServer: {
     contentBase: __dirname,
-    publicPath: '/build/',
+    publicPath: '/',
     historyApiFallback: true,
   },
 };

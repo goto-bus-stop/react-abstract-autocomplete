@@ -37,7 +37,7 @@ class App extends React.Component {
               renderSuggestion={renderSuggestion}
               renderSuggestions={renderSuggestions}
             >
-              <Completion trigger="@" completions={users} />
+              <Completion trigger="@" completions={users} minLength={1} />
             </AutoComplete>
           </Col>
         </Row>

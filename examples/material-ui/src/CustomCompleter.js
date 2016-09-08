@@ -15,7 +15,11 @@ const CustomCompleter = ({
     renderSuggestion={props => <UserSuggestion {...props} />}
     renderSuggestions={children => <SuggestionsList>{children}</SuggestionsList>}
   >
-    <Completion trigger="@" completions={users} />
+    <Completion
+      trigger="@"
+      completions={users}
+      minLength={1}
+    />
     <Completion
       trigger=":"
       completions={emojiNames}
@@ -25,7 +29,7 @@ const CustomCompleter = ({
           completion.substr(0, compare.length).toLowerCase() === compare
         )).slice(0, 20);
       }}
-      getValue={value => `${value} `}
+      getText={value => `${value} `}
       renderSuggestion={props => <EmojiSuggestion {...props} />}
     />
   </AutoComplete>
