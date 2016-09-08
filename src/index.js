@@ -20,30 +20,47 @@ function setCursor(input, position) {
 class AutoComplete extends React.Component {
   static propTypes = {
     /**
+     * Component to use for rendering the input element. Uses native `<input />`
+     * by default.
      *
+     * The component should accept `value`, `onChange` and `onKeyDown` props.
      */
     inputComponent: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.func,
     ]),
     /**
-     *
+     * Props to pass to the input component.
      */
     inputProps: React.PropTypes.object,
     /**
+     * Function that renders a single suggestion. This can be overridden for
+     * individual Completion types, in case they need custom rendering.
      *
+     * @param {Object} suggestion
+     * @param {string} suggestion.key - Unique key for the suggestion element.
+     *     See [Dynamic Children](https://facebook.github.io/react/docs/multiple-components.html#dynamic-children)
+     *     for details.
+     * @param {*} suggestion.value - Completion value of this suggestion.
+     * @param {boolean} suggestion.selected - Whether this suggestion is
+     *     currently selected.
+     * @param {function} suggestion.select - Autocomplete this suggestion.
+     * @returns {element}
      */
     renderSuggestion: React.PropTypes.func,
     /**
+     * Function that renders the suggestions list.
      *
+     * @param {Array.<React.Component>} suggestions
+     * @returns {element}
      */
     renderSuggestions: React.PropTypes.func,
     /**
-     *
+     * Completion types as <Completion /> elements.
      */
     children: React.PropTypes.node,
     /**
-     *
+     * The maximum amount of suggestions to show.
      */
     limit: React.PropTypes.number,
   };
