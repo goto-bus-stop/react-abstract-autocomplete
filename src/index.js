@@ -151,7 +151,7 @@ class AutoComplete extends React.Component {
       const { type, matchingValue } = completion;
       const before = value.slice(0, cursorPosition - matchingValue.length);
       const after = value.slice(cursorPosition);
-      const newValue = type.getValue(completion.completion, type);
+      const newValue = type.getText(completion.completion, type);
       this.setState({
         value: `${before}${newValue}${after}`,
         currentSuggestions: [],

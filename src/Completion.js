@@ -35,7 +35,7 @@ class Completion extends React.Component {
     /**
      *
      */
-    getValue: React.PropTypes.func,
+    getText: React.PropTypes.func,
   };
 
   static defaultProps = {
@@ -46,7 +46,7 @@ class Completion extends React.Component {
         completion.substr(0, compare.length).toLowerCase() === compare
       ));
     },
-    getValue: (value, { trigger }) => `${trigger}${value} `,
+    getText: (value, { trigger }) => `${trigger}${value} `,
   };
 
   render() {
