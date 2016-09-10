@@ -88,7 +88,9 @@ class AutoComplete extends React.Component {
 
   static defaultProps = {
     inputComponent: 'input',
-    inputProps: {},
+    inputProps: {
+      type: 'text',
+    },
     renderSuggestion: ({ key, value, selected, select }) => (
       <div
         key={key}
@@ -258,7 +260,6 @@ class AutoComplete extends React.Component {
     return (
       <span>
         <InputComponent
-          type="text"
           {...inputProps}
           value={value}
           onChange={this.handleChange}
