@@ -37,7 +37,9 @@ class AutoComplete extends React.Component {
      * Function that renders a single suggestion. This can be overridden for
      * individual Completion types, in case they need custom rendering.
      *
-     * @param {Object} suggestion
+     * @default `<div key={key} onClick={select}>{value}</div>`
+     *
+     * @param {Object} suggestion - Suggestion descriptor.
      * @param {string} suggestion.key - Unique key for the suggestion element.
      *     See [Dynamic Children](https://facebook.github.io/react/docs/multiple-components.html#dynamic-children)
      *     for details.
@@ -51,12 +53,15 @@ class AutoComplete extends React.Component {
     /**
      * Function that renders the suggestions list.
      *
-     * @param {Array.<React.Component>} suggestions
+     * @default `<div>{suggestions}</div>`
+     *
+     * @param {Array} suggestions - Array of children rendered by
+     *     `renderSuggestion`.
      * @returns {element}
      */
     renderSuggestions: React.PropTypes.func,
     /**
-     * Completion types as <Completion /> elements.
+     * Completion types as [`<Completion />`][Completion] elements.
      */
     children: React.PropTypes.node,
     /**
