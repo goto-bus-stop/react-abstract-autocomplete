@@ -96,10 +96,11 @@ function generateRow(prop) {
 function render(code) {
   const componentInfo = parse(code);
 
-  let text =
-    (componentInfo.description ? `\n${componentInfo.description}\n\n` : '') +
-    '| Name | Type | Default | Description |\n' +
-    '|:-----|:-----|:-----|:-----|\n';
+  const componentDescription = componentInfo.description
+    ? `\n${componentInfo.description}\n\n`
+    : '';
+  const header = '| Name | Type | Default | Description |';
+  let text = `${componentDescription}${header}\n|:-----|:-----|:-----|:-----|\n`;
 
   for (let key of Object.keys(componentInfo.props)) {
     const prop = componentInfo.props[key];

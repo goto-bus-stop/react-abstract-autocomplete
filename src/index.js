@@ -68,11 +68,29 @@ class AutoComplete extends React.Component {
      * The maximum amount of suggestions to show.
      */
     limit: React.PropTypes.number,
+    /**
+     * Current string value of the input component. Optional, useful for
+     * controlled inputs. Passed down to the input component as the value prop.
+     */
+    value: React.PropTypes.string,
+    /**
+     * Initial string value for uncontrolled inputs.
+     */
+    defaultValue: React.PropTypes.string,
+    /**
+     * Fired when the input component's value changes. Use this for controlled
+     * inputs.
+     *
+     * @param {string} newValue
+     */
+    onUpdate: React.PropTypes.func,
   };
 
   static defaultProps = {
     inputComponent: 'input',
-    inputProps: {},
+    inputProps: {
+      type: 'text',
+    },
     renderSuggestion: ({ key, value, selected, select }) => (
       <div
         key={key}
@@ -87,12 +105,19 @@ class AutoComplete extends React.Component {
   };
 
   state = {
-    value: '',
+    value: this.props.defaultValue || '',
     currentSuggestions: [],
     selectedSuggestion: 0,
   };
 
-  handleInput = event => {
+  sendUpdate(value) {
+    const { onUpdate } = this.props;
+    if (onUpdate) {
+      onUpdate(value);
+    }
+  }
+
+  handleChange = event => {
     const { children, limit } = this.props;
     const { value, selectionEnd } = event.target;
     const completingValue = value.slice(0, selectionEnd);
@@ -137,6 +162,13 @@ class AutoComplete extends React.Component {
       currentSuggestions,
       selectedSuggestion: 0,
     });
+
+    const { inputProps } = this.props;
+    if (inputProps.onChange && !event.defaultPrevented) {
+      inputProps.onChange(event);
+    }
+
+    this.sendUpdate(value);
   };
 
   handleKeyDown = event => {
@@ -163,6 +195,12 @@ class AutoComplete extends React.Component {
         1
       );
     }
+
+    // Bubble up manually if necessary
+    const { inputProps } = this.props;
+    if (inputProps.onKeyDown && !event.defaultPrevented) {
+      inputProps.onKeyDown(event);
+    }
   };
 
   select = (idx, input) => {
@@ -173,13 +211,17 @@ class AutoComplete extends React.Component {
       const { type, matchingValue } = completion;
       const before = value.slice(0, cursorPosition - matchingValue.length);
       const after = value.slice(cursorPosition);
-      const newValue = type.getText(completion.completion, type);
+      const insertValue = type.getText(completion.completion, type);
+      const newValue = `${before}${insertValue}${after}`;
+
       this.setState({
-        value: `${before}${newValue}${after}`,
+        value: newValue,
         currentSuggestions: [],
       }, () => {
-        setCursor(input, before.length + newValue.length);
+        setCursor(input, before.length + insertValue.length);
       });
+
+      this.sendUpdate(newValue);
     }
   };
 
@@ -206,7 +248,6 @@ class AutoComplete extends React.Component {
 
   render() {
     const {
-      value,
       currentSuggestions,
     } = this.state;
     const {
@@ -214,13 +255,14 @@ class AutoComplete extends React.Component {
       inputProps,
     } = this.props;
 
+    const value = 'value' in this.props ? this.props.value : this.state.value;
+
     return (
       <span>
         <InputComponent
-          type="text"
           {...inputProps}
           value={value}
-          onChange={this.handleInput}
+          onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}
         />
         {currentSuggestions.length > 0 ? this.renderSuggestions() : null}
