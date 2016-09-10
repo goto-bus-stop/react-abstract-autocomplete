@@ -20,8 +20,17 @@ const renderSuggestions = suggestions => (
   </div>
 );
 
-// eslint-disable-next-line react/prefer-stateless-function
 class App extends React.Component {
+  state = {
+    value: 'Type something here',
+  };
+
+  handleUpdate = value => {
+    this.setState({
+      value,
+    });
+  };
+
   render() {
     return (
       <Grid>
@@ -33,7 +42,9 @@ class App extends React.Component {
         <Row>
           <Col sm={12}>
             <AutoComplete
-              inputComponent={props => <FormControl type="text" {...props} />}
+              inputComponent={FormControl}
+              value={this.state.value}
+              onUpdate={this.handleUpdate}
               renderSuggestion={renderSuggestion}
               renderSuggestions={renderSuggestions}
             >
