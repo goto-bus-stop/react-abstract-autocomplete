@@ -50,6 +50,7 @@
     "gulp-plumber": "^1.1.0",
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.8",
+    "jsdom": "^9.5.0",
     "mocha": "^2.5.3",
     "react": "^15.2.1",
     "react-addons-test-utils": "^15.3.1",
@@ -57,6 +58,8 @@
     "react-dom": "^15.2.1",
     "rollup": "^0.34.13",
     "rollup-plugin-babel": "^2.6.1",
+    "sinon": "^1.17.5",
+    "sinon-chai": "^2.8.0",
     "through2": "^2.0.1"
   }
 }
