@@ -21,11 +21,14 @@ For usage examples, check out the [Examples] page, and the projects in the
 | Name | Type | Default | Description |
 |:-----|:-----|:-----|:-----|
 | inputComponent | one of:<br>&nbsp;string<br>&nbsp;function<br> | 'input' | Component to use for rendering the input element. Uses native `<input />` by default.<br>The component should accept `value`, `onChange` and `onKeyDown` props. |
-| inputProps | object | {} | Props to pass to the input component. |
+| inputProps | object | {  type: 'text',} | Props to pass to the input component. |
 | renderSuggestion | function | `<div key={key} onClick={select}>{value}</div>` | Function that renders a single suggestion. This can be overridden for individual Completion types, in case they need custom rendering.<br><br>**Signature:**<br>`function(suggestion: Object) => element`<br>*suggestion:* Suggestion descriptor.<br>*suggestion.key:* Unique key for the suggestion element.     See [Dynamic Children](https://facebook.github.io/react/docs/multiple-components.html#dynamic-children)     for details.<br>*suggestion.value:* Completion value of this suggestion.<br>*suggestion.selected:* Whether this suggestion is     currently selected.<br>*suggestion.select:* Autocomplete this suggestion. |
 | renderSuggestions | function | `<div>{suggestions}</div>` | Function that renders the suggestions list.<br><br>**Signature:**<br>`function(suggestions: Array) => element`<br>*suggestions:* Array of children rendered by     `renderSuggestion`. |
 | children | node |  | Completion types as [`<Completion />`][Completion] elements. |
 | limit | number | 15 | The maximum amount of suggestions to show. |
+| value | string |  | Current string value of the input component. Optional, useful for controlled inputs. Passed down to the input component as the value prop. |
+| defaultValue | string |  | Initial string value for uncontrolled inputs. |
+| onUpdate | function |  | Fired when the input component's value changes. Use this for controlled inputs.<br><br>**Signature:**<br>`function(newValue: string) => void`<br>*newValue:* null |
 
 ### Completion
 
