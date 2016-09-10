@@ -7,6 +7,16 @@ import {
 } from 'enzyme';
 import AutoComplete, { Completion } from '../src';
 
+function makeChangeEvent(value) {
+  const cursorPosition = value.indexOf('|');
+  return {
+    target: {
+      value: value.replace('|', ''),
+      selectionEnd: cursorPosition === -1 ? value.length : cursorPosition,
+    },
+  };
+}
+
 describe('<AutoComplete />', () => {
   it('renders a normal text input by default', () => {
     const ac = shallow(<AutoComplete />);
@@ -50,10 +60,41 @@ describe('<AutoComplete />', () => {
     const ac = mount(
       <AutoComplete defaultValue="Text" onUpdate={onUpdate} />
     );
-    ac.find('input').simulate('change', {
-      target: { value: 'Text Edited' },
-    });
+    ac.find('input').simulate('change', makeChangeEvent('Text Edited'));
     expect(onUpdate).to.have.been.calledWith('Text Edited');
+  });
+
+  it('asks for completions when the input value contains a trigger character', () => {
+    const getCompletions = spy(() => []);
+    const ac = mount(
+      <AutoComplete>
+        <Completion
+          trigger="@"
+          getCompletions={getCompletions}
+        />
+      </AutoComplete>
+    );
+    const testValue = 'Hello @Som';
+    ac.find('input').simulate('change', makeChangeEvent(testValue));
+    expect(getCompletions).to.have.been.calledWithMatch('@Som', {});
+  });
+
+  it('renders Suggestions when a Completion responds', () => {
+    const getCompletions = spy(() => [
+      'Autocompleted!',
+    ]);
+    const renderSuggestions = spy(suggestions => (
+      <div className="Suggestions">{suggestions}</div>
+    ));
+    const ac = mount(
+      <AutoComplete renderSuggestions={renderSuggestions}>
+        <Completion trigger="?" getCompletions={getCompletions} />
+      </AutoComplete>
+    );
+    ac.find('input').simulate('change', makeChangeEvent('Something'));
+    expect(renderSuggestions).to.not.have.been.calledWith();
+    ac.find('input').simulate('change', makeChangeEvent('Now ?Autoc'));
+    expect(renderSuggestions).to.have.been.calledWith();
   });
 });
 
