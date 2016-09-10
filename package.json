@@ -8,6 +8,7 @@
     "build": "gulp",
     "docs": "node tools/generate-docs.js > generated-docs.md",
     "lint": "eslint .",
+    "install-examples": "cd ./examples && npm run install",
     "test": "npm run lint && mocha"
   },
   "repository": "goto-bus-stop/react-abstract-autocomplete",
