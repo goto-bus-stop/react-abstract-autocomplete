@@ -7,6 +7,7 @@
     "prepublish": "npm run build",
     "build": "gulp",
     "lint": "eslint .",
+    "install-examples": "cd ./examples && npm run install",
     "test": "npm run lint && mocha"
   },
   "repository": "goto-bus-stop/react-abstract-autocomplete",

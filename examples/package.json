@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "barebones": "cd barebones && npm install --production",
+    "material-ui": "cd material-ui && npm install --production",
+    "react-bootstrap": "cd react-bootstrap && npm install --production",
+    "zurb-foundation": "cd zurb-foundation && npm install --production",
+    "install": "npm run barebones && npm run material-ui && npm run react-bootstrap && npm run zurb-foundation"
+  }
+}
