@@ -5,7 +5,7 @@ import {
   mount,
   shallow,
 } from 'enzyme';
-import AutoComplete from '../src';
+import AutoComplete, { Completion } from '../src';
 
 describe('<AutoComplete />', () => {
   it('renders a normal text input by default', () => {
@@ -54,5 +54,28 @@ describe('<AutoComplete />', () => {
       target: { value: 'Text Edited' },
     });
     expect(onUpdate).to.have.been.calledWith('Text Edited');
+  });
+});
+
+describe('<Completion />', () => {
+  it('searches the `completions` prop if no `getCompletions` is given', () => {
+    const usernames = [
+      'Test',
+      'More test',
+      'Test Two',
+    ];
+    const cp = shallow(
+      <Completion trigger="@" completions={usernames} />
+    ).instance();
+    expect(
+      cp.props.getCompletions('@Tes', cp.props)
+    ).to.eql(['Test', 'Test Two']);
+    expect(
+      cp.props.getCompletions('@Nothing', cp.props)
+    ).to.eql([]);
+    // case insensitive
+    expect(
+      cp.props.getCompletions('@MORE TE', cp.props)
+    ).to.eql(['More test']);
   });
 });
