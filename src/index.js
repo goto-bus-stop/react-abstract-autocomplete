@@ -101,6 +101,7 @@ class AutoComplete extends React.Component {
       </div>
     ),
     renderSuggestions: suggestions => <div>{suggestions}</div>,
+    children: [],
     limit: 15,
   };
 
