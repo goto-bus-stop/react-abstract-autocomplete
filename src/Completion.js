@@ -1,7 +1,8 @@
 import * as React from 'react';
 
 /**
- *
+ * `<Completion />` elements describe different data sources. Multiple can be
+ * used in the same [`<AutoComplete />`][AutoComplete] component.
  */
 class Completion extends React.Component {
   static propTypes = {
@@ -44,12 +45,14 @@ class Completion extends React.Component {
     /**
      * Get an array of possible completions.
      *
+     * @default Searches the `completions` prop.
+     *
      * @param {string} matchingValue - Current value to be completed, as
      *     extracted using `props.regex`.
      * @param {Object} props - Props of this `<Completion />` element.
      * @returns {Array.<*>}
      */
-    getCompletions: React.PropTypes.func.isRequired,
+    getCompletions: React.PropTypes.func,
     /**
      * Optional array of completion values. This can be used if all possible
      * completions are known beforehand. If provided, a default `getCompletions`
