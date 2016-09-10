@@ -15,164 +15,32 @@ npm install --save react-abstract-autocomplete
 For usage examples, check out the [Examples] page, and the projects in the
 [examples/][Examples source code] directory.
 
+<!-- Docs are generated using `npm run docs` and copy-pasted here: -->
+
 ### AutoComplete
-
-<!--
-  Whelp… HTML tables, because GFM doesn't do multiline cell content, I think?
--->
-
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>`inputComponent`</td>
-      <td>`'input'`</td>
-      <td>
-        Component to use for rendering the input element. Uses native `<input />`
-        by default. <br>
-        The component should accept `value`, `onChange` and `onKeyDown` props.
-      </td>
-    </tr>
-    <tr>
-      <td>`inputProps`</td>
-      <td>`{}`</td>
-      <td>Props to pass to the input component.</td>
-    </tr>
-    <tr>
-      <td>`children`</td>
-      <td></td>
-      <td>[Completion types][#completion] as `<Completion />` elements.</td>
-    </tr>
-    <tr>
-      <td>`limit`</td>
-      <td>15</td>
-      <td>The maximum amount of suggestions to show.</td>
-    </tr>
-    <tr>
-      <td>`renderSuggestions`</td>
-      <td>`<div>{suggestions}</div>`</td>
-      <td>
-        Function that renders the suggestions list. <br>
-        Signature: `(suggestions: Array<element>) => element` <br>
-      </td>
-    </tr>
-    <tr>
-      <td>`renderSuggestion`</td>
-      <td>
-        `<div key={key} onClick={select}>{value}</div>`
-      </td>
-      <td>
-        Function that renders a single suggestion. This can be overridden for
-        individual Completion types, in case they need custom rendering. <br>
-        Signature: `(suggestion: object) => element` <br>
-        _suggestion.key_ `string` - Unique key for the suggestion element. See
-          [Dynamic Children] for details. <br>
-        _suggestion.value_ `any` - Completion value of this suggestion. <br>
-        _suggestion.selected_ `boolean` - Whether this suggestion is currently
-        selected. <br>
-        _suggestion.select_ `function` - Autocomplete this suggestion.
-      </td>
-    </tr>
-  </tbody>
-</table>
+| Name | Type | Default | Description |
+|:-----|:-----|:-----|:-----|
+| inputComponent | one of:<br>&nbsp;string<br>&nbsp;function<br> | 'input' | Component to use for rendering the input element. Uses native `<input />` by default.<br>The component should accept `value`, `onChange` and `onKeyDown` props. |
+| inputProps | object | {} | Props to pass to the input component. |
+| renderSuggestion | function | `<div key={key} onClick={select}>{value}</div>` | Function that renders a single suggestion. This can be overridden for individual Completion types, in case they need custom rendering.<br><br>**Signature:**<br>`function(suggestion: Object) => element`<br>*suggestion:* Suggestion descriptor.<br>*suggestion.key:* Unique key for the suggestion element.     See [Dynamic Children](https://facebook.github.io/react/docs/multiple-components.html#dynamic-children)     for details.<br>*suggestion.value:* Completion value of this suggestion.<br>*suggestion.selected:* Whether this suggestion is     currently selected.<br>*suggestion.select:* Autocomplete this suggestion. |
+| renderSuggestions | function | `<div>{suggestions}</div>` | Function that renders the suggestions list.<br><br>**Signature:**<br>`function(suggestions: Array) => element`<br>*suggestions:* Array of children rendered by     `renderSuggestion`. |
+| children | node |  | Completion types as [`<Completion />`][Completion] elements. |
+| limit | number | 15 | The maximum amount of suggestions to show. |
 
 ### Completion
 
-`<Completion />` elements describe different data sources. Multiple can be used
-in the same [`<AutoComplete />`][AutoComplete] component.
+`<Completion />` elements describe different data sources. Multiple can be
+used in the same [`<AutoComplete />`][AutoComplete] component.
 
-<table>
-  <thead>
-    <tr>
-      <th>Prop</th>
-      <th>Default</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>`trigger` (required)</td>
-      <td></td>
-      <td>String that triggers this completion type.</td>
-    </tr>
-    <tr>
-      <td>`minLength`</td>
-      <td>3</td>
-      <td>Minimum amount of characters typed before suggestions will be given.</td>
-    </tr>
-    <tr>
-      <td>`regex`</td>
-      <td>`/.*(<trigger>.*?)$/`</td>
-      <td>
-        <p>Regex to extract the current completion value from the input. Can also
-        be used to "validate" the current completion value, so no suggestions
-        will be provided if it's "invalid".</p>
-
-        <p>Uses the first capture group as the value to be completed, or the full
-        match if there are no capture groups. For example:</p>
-
-        <ul>
-          <li>`/.*(@.*?)$/` + `"Hello @ReA"` → `"@ReA"`</li>
-          <li>`/\w+$/` + `"This is sp"` → `"sp"`</li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>`limit`</td>
-      <td>15</td>
-      <td>The maximum amount of suggestions to show.</td>
-    </tr>
-    <tr>
-      <td>`renderSuggestion`</td>
-      <td></td>
-      <td>
-        Optional override of the [`<AutoComplete />`][AutoComplete]'s
-        `renderSuggestion` prop, with the same behaviour.
-      </td>
-    </tr>
-    <tr>
-      <td>`getCompletions`</td>
-      <td>Searches `completions` prop by default</td>
-      <td>
-        Get an array of possible completions. <br>
-        Signature: `(matchingValue: string, props: object) => array` <br>
-        _matchingValue_ - Current value to be completed, as extracted using
-        `props.regex`. <br>
-        _props_ - Props passed to this `<Completion />` element.
-      </td>
-    </tr>
-    <tr>
-      <td>`completions`</td>
-      <td></td>
-      <td>
-        Optional array of completion values. This can be used if all possible
-        completions are known beforehand. If provided, a default `getCompletions`
-        function that searches this array will be used.
-      </td>
-    </tr>
-    <tr>
-      <td>`getText`</td>
-      <td>
-        `(value, props) => props.trigger + value + ' '`
-      </td>
-      <td>
-        Transform a completion value to a string that will be inserted into the
-        input component. By default, uses `${props.trigger}${value} `. (Note the
-        space at the end! If you want to add a space once a completion is
-        inserted, add it here.) <br>
-        Signature: `(value: any, props: object) => string` <br>
-        _value_ - Completion value. <br>
-        _props_ - Props of this `<Completion />` element.
-      </td>
-    </tr>
-  </tbody>
-</table>
+| Name | Type | Default | Description |
+|:-----|:-----|:-----|:-----|
+| trigger _(required)_ | one of:<br>&nbsp;string<br>&nbsp;RegExp<br> |  | String that triggers this completion type. |
+| minLength | number | 3 | Minimum amount of characters typed before suggestions will be given. |
+| regex | RegExp |  | Regex to extract the current completion value from the input. Can also be used to "validate" the current completion value, so no suggestions will be provided if it's "invalid".<br>Uses the first capture group as the value to be completed, or the full match if there are no capture groups. For example:  - /.*(@.*?)$/ + "Hello @ReA" → "@ReA"  - /\w+$/ + "This is sp" → "sp" |
+| renderSuggestion | function |  | Function that renders a single suggestion.<br><br>**Signature:**<br>`function(suggestion: Object) => element`<br>*suggestion:* Suggestion descriptor.<br>*suggestion.key:* Unique key for the suggestion element.     See [Dynamic Children](https://facebook.github.io/react/docs/multiple-components.html#dynamic-children)     for details.<br>*suggestion.value:* Completion value of this suggestion.<br>*suggestion.selected:* Whether this suggestion is     currently selected.<br>*suggestion.select:* Autocomplete this suggestion. |
+| getCompletions | function | Searches the `completions` prop. | Get an array of possible completions.<br><br>**Signature:**<br>`function(matchingValue: string, props: Object) => undefined`<br>*matchingValue:* Current value to be completed, as     extracted using `props.regex`.<br>*props:* Props of this `<Completion />` element. |
+| completions | array |  | Optional array of completion values. This can be used if all possible completions are known beforehand. If provided, a default `getCompletions` function that searches this array will be used. |
+| getText | function | (value, { trigger }) => `${trigger}${value} ` | Transform a completion value to a string that will be inserted into the input component. By default, uses `${props.trigger}${value} `. (Note the space at the end! If you want to add a space once a completion is inserted, add it here.)<br><br>**Signature:**<br>`function(value: undefined, props: Object) => string`<br>*value:* Completion value.<br>*props:* Props of this `<Completion />` element. |
 
 ## License
 

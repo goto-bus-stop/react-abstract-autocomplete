@@ -31,7 +31,7 @@ class Completion extends React.Component {
     /**
      * Function that renders a single suggestion.
      *
-     * @param {Object} suggestion
+     * @param {Object} suggestion - Suggestion descriptor.
      * @param {string} suggestion.key - Unique key for the suggestion element.
      *     See [Dynamic Children](https://facebook.github.io/react/docs/multiple-components.html#dynamic-children)
      *     for details.
