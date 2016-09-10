@@ -122,7 +122,7 @@ class AutoComplete extends React.Component {
         ...available,
         ...completions.map(completion => ({
           completion,
-          ...childProps
+          ...childProps,
         })),
       ];
     }, []);
