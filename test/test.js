@@ -7,14 +7,17 @@ import {
 } from 'enzyme';
 import AutoComplete, { Completion } from '../src';
 
-function makeChangeEvent(value) {
+function type(input, value) {
   const cursorPosition = value.indexOf('|');
-  return {
+  const selectionEnd = cursorPosition === -1 ? value.length : cursorPosition;
+
+  input.simulate('change', {
     target: {
       value: value.replace('|', ''),
-      selectionEnd: cursorPosition === -1 ? value.length : cursorPosition,
+      selectionEnd,
     },
-  };
+  });
+  input.node.selectionEnd = selectionEnd;
 }
 
 describe('<AutoComplete />', () => {
@@ -60,7 +63,7 @@ describe('<AutoComplete />', () => {
     const ac = mount(
       <AutoComplete defaultValue="Text" onUpdate={onUpdate} />
     );
-    ac.find('input').simulate('change', makeChangeEvent('Text Edited'));
+    type(ac.find('input'), 'Text Edited');
     expect(onUpdate).to.have.been.calledWith('Text Edited');
   });
 
@@ -75,7 +78,7 @@ describe('<AutoComplete />', () => {
       </AutoComplete>
     );
     const testValue = 'Hello @Som';
-    ac.find('input').simulate('change', makeChangeEvent(testValue));
+    type(ac.find('input'), testValue);
     expect(getCompletions).to.have.been.calledWithMatch('@Som', {});
   });
 
@@ -91,10 +94,32 @@ describe('<AutoComplete />', () => {
         <Completion trigger="?" getCompletions={getCompletions} />
       </AutoComplete>
     );
-    ac.find('input').simulate('change', makeChangeEvent('Something'));
+    type(ac.find('input'), 'Something');
     expect(renderSuggestions).to.not.have.been.calledWith();
-    ac.find('input').simulate('change', makeChangeEvent('Now ?Autoc'));
+    type(ac.find('input'), 'Now ?Autoc');
     expect(renderSuggestions).to.have.been.calledWith();
+  });
+
+  it('inserts completions when pressing Tab/Enter', () => {
+    const getText = spy(value => value);
+    const completions = ['Completed'];
+    const ac = mount(
+      <AutoComplete>
+        <Completion trigger="!" completions={completions} getText={getText} />
+      </AutoComplete>
+    );
+
+    const input = ac.find('input');
+    type(input, 'This Is !Compl');
+    input.simulate('keydown', { key: 'Enter' });
+    expect(getText).to.have.been.calledWith('Completed');
+    expect(input.prop('value')).to.equal('This Is Completed');
+
+    getText.reset();
+    type(input, 'This Is !Compl');
+    input.simulate('keydown', { key: 'Tab' });
+    expect(getText).to.have.been.calledWith('Completed');
+    expect(input.prop('value')).to.equal('This Is Completed');
   });
 });
 
