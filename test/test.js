@@ -11,14 +11,12 @@ function type(input, value) {
   const cursorPosition = value.indexOf('|');
   const selectionEnd = cursorPosition === -1 ? value.length : cursorPosition;
 
-  input.simulate('change', {
-    target: {
-      value: value.replace('|', ''),
-      selectionEnd,
-    },
+  Object.assign(input.node, {
+    value: value.replace('|', ''),
+    selectionEnd,
   });
-  // eslint-disable-next-line no-param-reassign
-  input.node.selectionEnd = selectionEnd;
+
+  input.simulate('change', { target: input.node });
 }
 
 describe('<AutoComplete />', () => {
@@ -121,6 +119,26 @@ describe('<AutoComplete />', () => {
     input.simulate('keydown', { key: 'Tab' });
     expect(getText).to.have.been.calledWith('Completed');
     expect(input.prop('value')).to.equal('This Is Completed');
+  });
+
+  it('inserts completions when clicking a suggestion element', () => {
+    // eslint-disable-next-line react/prop-types
+    const renderSuggestion = ({ key, select }) => (
+      <div className="suggestion" key={key} onClick={select} />
+    );
+    const getText = spy(value => value);
+    const completions = ['complete'];
+    const ac = mount(
+      <AutoComplete renderSuggestion={renderSuggestion}>
+        <Completion trigger="!" completions={completions} getText={getText} />
+      </AutoComplete>
+    );
+
+    type(ac.find('input'), 'Click will !com');
+    ac.find('.suggestion').simulate('click');
+
+    expect(getText).to.have.been.calledWith('complete');
+    expect(ac.find('input').prop('value')).to.equal('Click will complete');
   });
 });
 
