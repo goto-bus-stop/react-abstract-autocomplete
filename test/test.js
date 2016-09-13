@@ -17,6 +17,7 @@ function type(input, value) {
       selectionEnd,
     },
   });
+  // eslint-disable-next-line no-param-reassign
   input.node.selectionEnd = selectionEnd;
 }
 
