@@ -107,6 +107,7 @@ class AutoComplete extends React.Component {
 
   state = {
     value: this.props.defaultValue || '',
+    input: null,
     currentSuggestions: [],
     selectedSuggestion: 0,
   };
@@ -160,6 +161,7 @@ class AutoComplete extends React.Component {
 
     this.setState({
       value,
+      input: event.target,
       currentSuggestions,
       selectedSuggestion: 0,
     });
@@ -206,7 +208,7 @@ class AutoComplete extends React.Component {
 
   select = (idx, input) => {
     const { currentSuggestions, value } = this.state;
-    const cursorPosition = input.selectionEnd;
+    const cursorPosition = input ? input.selectionEnd : value.length;
     const completion = currentSuggestions[idx];
     if (input) {
       const { type, matchingValue } = completion;
@@ -219,6 +221,7 @@ class AutoComplete extends React.Component {
         value: newValue,
         currentSuggestions: [],
       }, () => {
+        input.focus();
         setCursor(input, before.length + insertValue.length);
       });
 
@@ -227,7 +230,7 @@ class AutoComplete extends React.Component {
   };
 
   renderSuggestion({ type, completion }, idx) {
-    const { selectedSuggestion } = this.state;
+    const { input, selectedSuggestion } = this.state;
     // Use the Completion type's suggestion renderer, or the default if it
     // doesn't have a custom one.
     const render = type.renderSuggestion || this.props.renderSuggestion;
@@ -235,7 +238,7 @@ class AutoComplete extends React.Component {
       key: `${idx}`,
       value: completion,
       selected: idx === selectedSuggestion,
-      select: () => this.select(idx),
+      select: () => this.select(idx, input),
     });
   }
 
