@@ -192,7 +192,7 @@ class AutoComplete extends React.Component {
     } else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       const { target } = event;
       setTimeout(
-        () => this.handleInput({ target }),
+        () => this.handleChange({ target }),
         1
       );
     }
