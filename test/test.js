@@ -140,6 +140,42 @@ describe('<AutoComplete />', () => {
     expect(getText).to.have.been.calledWith('complete');
     expect(ac.find('input').prop('value')).to.equal('Click will complete');
   });
+
+  it('allows selecting the desired suggestion using up/down keys', () => {
+    const completions = ['abc', 'abcabc', 'abcabcabc'];
+    const ac = mount(
+      <AutoComplete>
+        <Completion trigger="!" minLength={2} completions={completions} />
+      </AutoComplete>
+    );
+
+    const input = ac.find('input');
+    type(input, '!a');
+    expect(ac.state('selectedSuggestion')).to.equal(0);
+    input.simulate('keydown', { key: 'ArrowDown' });
+    expect(ac.state('selectedSuggestion')).to.equal(1);
+    input.simulate('keydown', { key: 'ArrowDown' });
+    expect(ac.state('selectedSuggestion')).to.equal(2);
+    input.simulate('keydown', { key: 'ArrowUp' });
+    expect(ac.state('selectedSuggestion')).to.equal(1);
+  });
+
+  it('wraps around when using up/down keys to navigate beyond first/last items', () => {
+    const completions = ['abc', 'abcabc', 'abcabcabc'];
+    const ac = mount(
+      <AutoComplete>
+        <Completion trigger="!" minLength={2} completions={completions} />
+      </AutoComplete>
+    );
+
+    const input = ac.find('input');
+    type(input, '!a');
+    expect(ac.state('selectedSuggestion')).to.equal(0);
+    input.simulate('keydown', { key: 'ArrowUp' });
+    expect(ac.state('selectedSuggestion')).to.equal(2);
+    input.simulate('keydown', { key: 'ArrowDown' });
+    expect(ac.state('selectedSuggestion')).to.equal(0);
+  });
 });
 
 describe('<Completion />', () => {

@@ -178,13 +178,16 @@ class AutoComplete extends React.Component {
     const { selectedSuggestion, currentSuggestions } = this.state;
     if (event.key === 'ArrowUp') {
       event.preventDefault();
-      if (selectedSuggestion > 0) {
-        this.setState({ selectedSuggestion: selectedSuggestion - 1 });
+      if (currentSuggestions.length > 0) {
+        const nextSuggestion = selectedSuggestion > 0 ? selectedSuggestion - 1 :
+          currentSuggestions.length - 1;
+        this.setState({ selectedSuggestion: nextSuggestion });
       }
     } else if (event.key === 'ArrowDown') {
       event.preventDefault();
-      if (selectedSuggestion < currentSuggestions.length - 1) {
-        this.setState({ selectedSuggestion: selectedSuggestion + 1 });
+      if (currentSuggestions.length > 0) {
+        const nextSuggestion = (selectedSuggestion + 1) % currentSuggestions.length;
+        this.setState({ selectedSuggestion: nextSuggestion });
       }
     } else if (event.key === 'Enter' || event.key === 'Tab') {
       if (currentSuggestions[selectedSuggestion]) {
