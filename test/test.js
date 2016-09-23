@@ -11,6 +11,8 @@ function type(input, value) {
   const cursorPosition = value.indexOf('|');
   const selectionEnd = cursorPosition === -1 ? value.length : cursorPosition;
 
+  input.simulate('focus');
+
   Object.assign(input.node, {
     value: value.replace('|', ''),
     selectionEnd,
@@ -97,6 +99,21 @@ describe('<AutoComplete />', () => {
     expect(renderSuggestions).to.not.have.been.calledWith();
     type(ac.find('input'), 'Now ?Autoc');
     expect(renderSuggestions).to.have.been.calledWith();
+  });
+
+  it('hides suggestions when input is unfocused', () => {
+    const renderSuggestions = suggestions => (
+      <div className="Suggestions">{suggestions}</div>
+    );
+    const ac = mount(
+      <AutoComplete renderSuggestions={renderSuggestions}>
+        <Completion trigger="!" getCompletions={() => ['a', 'b', 'c']} />
+      </AutoComplete>
+    );
+    const input = ac.find('input');
+    type(input, 'Something');
+    input.simulate('blur');
+    expect(ac.find('.Suggestions')).to.have.length(0);
   });
 
   it('inserts completions when pressing Tab/Enter', () => {

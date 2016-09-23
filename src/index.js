@@ -106,6 +106,7 @@ class AutoComplete extends React.Component {
   };
 
   state = {
+    open: false,
     value: this.props.defaultValue || '',
     input: null,
     currentSuggestions: [],
@@ -113,9 +114,8 @@ class AutoComplete extends React.Component {
   };
 
   sendUpdate(value) {
-    const { onUpdate } = this.props;
-    if (onUpdate) {
-      onUpdate(value);
+    if (this.props.onUpdate) {
+      this.props.onUpdate(value);
     }
   }
 
@@ -209,6 +209,22 @@ class AutoComplete extends React.Component {
     }
   };
 
+  handleFocus = event => {
+    this.setState({ open: true });
+    const { inputProps } = this.props;
+    if (inputProps.onFocus) {
+      inputProps.onFocus(event);
+    }
+  };
+
+  handleBlur = event => {
+    this.setState({ open: false });
+    const { inputProps } = this.props;
+    if (inputProps.onBlur) {
+      inputProps.onBlur(event);
+    }
+  };
+
   select = (idx, input) => {
     const { currentSuggestions, value } = this.state;
     const cursorPosition = input ? input.selectionEnd : value.length;
@@ -255,6 +271,7 @@ class AutoComplete extends React.Component {
 
   render() {
     const {
+      open,
       currentSuggestions,
     } = this.state;
     const {
@@ -271,8 +288,10 @@ class AutoComplete extends React.Component {
           value={value}
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
         />
-        {currentSuggestions.length > 0 ? this.renderSuggestions() : null}
+        {open && currentSuggestions.length > 0 ? this.renderSuggestions() : null}
       </span>
     );
   }
