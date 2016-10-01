@@ -61,9 +61,9 @@ class Completion extends React.Component {
     completions: React.PropTypes.array,
     /**
      * Transform a completion value to a string that will be inserted into the
-     * input component. By default, uses `${props.trigger}${value} `. (Note the
-     * space at the end! If you want to add a space once a completion is
-     * inserted, add it here.)
+     * input component. By default, uses ``` `${props.trigger}${value} ` ```.
+     * (Note the space at the end! If you want to add a space once a completion
+     * is inserted, add it here.)
      *
      * @param {*} value - Completion value.
      * @param {Object} props - Props of this `<Completion />` element.
