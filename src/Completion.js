@@ -13,10 +13,12 @@ class Completion extends React.Component {
       React.PropTypes.string,
       React.PropTypes.instanceOf(RegExp),
     ]).isRequired,
+
     /**
      * Minimum amount of characters typed before suggestions will be given.
      */
     minLength: React.PropTypes.number,
+
     /**
      * Regex to extract the current completion value from the input. Can also be
      * used to "validate" the current completion value, so no suggestions will
@@ -28,6 +30,7 @@ class Completion extends React.Component {
      *  - /\w+$/ + "This is sp" → "sp"
      */
     regex: React.PropTypes.instanceOf(RegExp),
+
     /**
      * Function that renders a single suggestion.
      *
@@ -42,6 +45,7 @@ class Completion extends React.Component {
      * @returns {element}
      */
     renderSuggestion: React.PropTypes.func,
+
     /**
      * Get an array of possible completions.
      *
@@ -53,12 +57,14 @@ class Completion extends React.Component {
      * @returns {Array.<*>}
      */
     getCompletions: React.PropTypes.func,
+
     /**
      * Optional array of completion values. This can be used if all possible
      * completions are known beforehand. If provided, a default `getCompletions`
      * function that searches this array will be used.
      */
     completions: React.PropTypes.array,
+
     /**
      * Transform a completion value to a string that will be inserted into the
      * input component. By default, uses ``` `${props.trigger}${value} ` ```.

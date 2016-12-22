@@ -29,10 +29,12 @@ class AutoComplete extends React.Component {
       React.PropTypes.string,
       React.PropTypes.func,
     ]),
+
     /**
      * Props to pass to the input component.
      */
     inputProps: React.PropTypes.object,
+
     /**
      * Function that renders a single suggestion. This can be overridden for
      * individual Completion types, in case they need custom rendering.
@@ -50,6 +52,7 @@ class AutoComplete extends React.Component {
      * @returns {element}
      */
     renderSuggestion: React.PropTypes.func,
+
     /**
      * Function that renders the suggestions list.
      *
@@ -60,23 +63,28 @@ class AutoComplete extends React.Component {
      * @returns {element}
      */
     renderSuggestions: React.PropTypes.func,
+
     /**
      * Completion types as [`<Completion />`][Completion] elements.
      */
     children: React.PropTypes.node,
+
     /**
      * The maximum amount of suggestions to show.
      */
     limit: React.PropTypes.number,
+
     /**
      * Current string value of the input component. Optional, useful for
      * controlled inputs. Passed down to the input component as the value prop.
      */
     value: React.PropTypes.string,
+
     /**
      * Initial string value for uncontrolled inputs.
      */
     defaultValue: React.PropTypes.string,
+
     /**
      * Fired when the input component's value changes. Use this for controlled
      * inputs.
