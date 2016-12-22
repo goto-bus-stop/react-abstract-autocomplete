@@ -226,11 +226,17 @@ class AutoComplete extends React.Component {
   };
 
   handleBlur = event => {
-    this.setState({ open: false });
-    const { inputProps } = this.props;
-    if (inputProps.onBlur) {
-      inputProps.onBlur(event);
-    }
+    // Make sure the blur event is handled _after_ any possible suggestion click
+    // events. Otherwise, the suggestions list might close before a click event
+    // is registered, and click-completing would be impossible.
+    // It's a bit of a hack and hopefully there is a better way!
+    setTimeout(() => {
+      this.setState({ open: false });
+      const { inputProps } = this.props;
+      if (inputProps.onBlur) {
+        inputProps.onBlur(event);
+      }
+    }, 16);
   };
 
   select = (idx, input) => {
