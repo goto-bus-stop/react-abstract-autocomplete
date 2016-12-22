@@ -21,6 +21,7 @@ function getStyles(theme, isDark) {
       width: '100%',
       height: '100%',
       padding: 20,
+      boxSizing: 'border-box',
     },
     header: {
       font: '16pt roboto, sans-serif',
