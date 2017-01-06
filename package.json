@@ -2,10 +2,17 @@
   "name": "react-abstract-autocomplete",
   "version": "1.1.1",
   "description": "Bring-Your-Own-UI autocomplete component for React.",
-  "main": "lib/rollup.js",
+  "main": "index.cjs.js",
+  "jsnext:main": "index.es.js",
+  "module": "index.es.js",
+  "files": [
+    "index.es.js",
+    "index.cjs.js"
+  ],
   "scripts": {
     "prepublish": "npm run build",
-    "build": "gulp",
+    "build": "rollup -c rollup.config.js",
+    "watch": "watch 'npm run build && echo ok' src",
     "docs": "node tools/generate-docs.js > generated-docs.md",
     "lint": "eslint .",
     "install-examples": "cd ./examples && npm run install",
@@ -22,6 +29,7 @@
   "bugs": "https://github.com/goto-bus-stop/react-dailymotion/issues",
   "homepage": "https://github.com/goto-bus-stop/react-dailymotion#readme",
   "dependencies": {
+    "babel-runtime": "^6.20.0",
     "escape-string-regexp": "^1.0.5"
   },
   "peerDependencies": {
@@ -33,6 +41,7 @@
     "babel-plugin-transform-class-properties": "^6.11.5",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.2.9",
+    "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
     "babel-register": "^6.14.0",
@@ -44,12 +53,6 @@
     "eslint-plugin-import": "^1.10.2",
     "eslint-plugin-jsx-a11y": "^1.5.5",
     "eslint-plugin-react": "^5.2.2",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-newer": "^1.2.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-util": "^3.0.7",
-    "gulp-watch": "^4.3.8",
     "jsdom": "^9.5.0",
     "mocha": "^2.5.3",
     "react": "^15.2.1",
@@ -60,6 +63,6 @@
     "rollup-plugin-babel": "^2.6.1",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
-    "through2": "^2.0.1"
+    "watch": "^1.0.1"
   }
 }
