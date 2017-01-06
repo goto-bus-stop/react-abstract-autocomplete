@@ -13,7 +13,7 @@ Object.assign(babelrc, {
 });
 
 const externals = Object.keys(pkg.dependencies)
-    .concat(Object.keys(pkg.peerDependencies))
+    .concat(Object.keys(pkg.peerDependencies));
 
 export default {
   entry: './src/index.js',
