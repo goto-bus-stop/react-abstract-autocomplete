@@ -25,7 +25,7 @@ class App extends React.Component {
     value: 'Type something here',
   };
 
-  handleUpdate = value => {
+  handleUpdate = (value) => {
     this.setState({
       value,
     });

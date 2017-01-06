@@ -18,7 +18,7 @@ function generatePropType(type) {
     case 'instanceOf':
       return type.value;
     case 'enum': {
-      const values = type.value.map((v) => v.value).join('<br>&nbsp;');
+      const values = type.value.map(v => v.value).join('<br>&nbsp;');
       return `enum:<br>&nbsp;${values}<br>`;
     }
     case 'union': {
@@ -35,14 +35,14 @@ function generateDescription(parsed, tags, type) {
   // must be eliminated to prevent markdown mayhem.
   const jsDocText = parsed.description.replace(/\n\n/g, '<br>').replace(/\n/g, ' ');
 
-  if (parsed.tags.some((tag) => tag.title === 'ignore')) {
+  if (parsed.tags.some(tag => tag.title === 'ignore')) {
     return null;
   }
   let signature = '';
 
   if (type.name === 'func' && parsed.tags.length > 0) {
     const parsedArgs = tags.param || [];
-    const parsedReturns = tags.returns && tags.returns[0] || {
+    const parsedReturns = (tags.returns && tags.returns[0]) || {
       type: { name: 'void' },
     };
 
@@ -67,7 +67,7 @@ function generateRow(prop) {
   const parsed = parseDoctrine(prop.description);
 
   const parsedTags = {};
-  parsed.tags.forEach(tag => {
+  parsed.tags.forEach((tag) => {
     if (!parsedTags[tag.title]) {
       parsedTags[tag.title] = [];
     }
@@ -102,19 +102,20 @@ function render(code) {
   const header = '| Name | Type | Default | Description |';
   let text = `${componentDescription}${header}\n|:-----|:-----|:-----|:-----|\n`;
 
-  for (let key of Object.keys(componentInfo.props)) {
+  Object.keys(componentInfo.props).forEach((key) => {
     const prop = componentInfo.props[key];
 
     const row = generateRow(prop);
 
-    if (row.description === null) continue;
+    if (row.description === null) return;
 
+    let required = '';
     if (prop.required) {
-      key += ' _(required)_';
+      required += ' _(required)_';
     }
 
-    text += `| ${key} | ${row.type} | ${row.default} | ${row.description} |\n`;
-  }
+    text += `| ${key}${required} | ${row.type} | ${row.default} | ${row.description} |\n`;
+  });
 
   return text;
 }
@@ -127,7 +128,9 @@ function gen(file) {
   return render(source);
 }
 
+/* eslint-disable no-console */
 console.log('### AutoComplete');
 console.log(gen('src/index.js'));
 console.log('### Completion');
 console.log(gen('src/Completion.js'));
+/* eslint-enable no-console */

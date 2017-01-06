@@ -34,26 +34,26 @@ describe('<AutoComplete />', () => {
         Your text: <input type="email" {...props} />
       </div>
     );
-    const ac = shallow(
+    const ac = shallow((
       <AutoComplete inputComponent={CustomInput} />
-    );
+    ));
     expect(ac.containsMatchingElement(<CustomInput />)).to.equal(true);
   });
 
   it('renders the defaultValue by default', () => {
     const testValue = 'Test Value';
-    const ac = shallow(
+    const ac = shallow((
       <AutoComplete defaultValue={testValue} />
-    );
+    ));
     expect(ac.find('input').props().value).to.equal(testValue);
   });
 
   it('responds to controlled-style value props', () => {
     const valueOne = 'Value One';
     const valueTwo = 'Value Two';
-    const ac = mount(
+    const ac = mount((
       <AutoComplete value={valueOne} />
-    );
+    ));
     expect(ac.find('input').props().value).to.equal(valueOne);
     ac.setProps({ value: valueTwo });
     expect(ac.find('input').props().value).to.equal(valueTwo);
@@ -61,23 +61,23 @@ describe('<AutoComplete />', () => {
 
   it('fires onUpdate events when the input value is changed', () => {
     const onUpdate = spy();
-    const ac = mount(
+    const ac = mount((
       <AutoComplete defaultValue="Text" onUpdate={onUpdate} />
-    );
+    ));
     type(ac.find('input'), 'Text Edited');
     expect(onUpdate).to.have.been.calledWith('Text Edited');
   });
 
   it('asks for completions when the input value contains a trigger character', () => {
     const getCompletions = spy(() => []);
-    const ac = mount(
+    const ac = mount((
       <AutoComplete>
         <Completion
           trigger="@"
           getCompletions={getCompletions}
         />
       </AutoComplete>
-    );
+    ));
     const testValue = 'Hello @Som';
     type(ac.find('input'), testValue);
     expect(getCompletions).to.have.been.calledWithMatch('@Som', {});
@@ -90,11 +90,11 @@ describe('<AutoComplete />', () => {
     const renderSuggestions = spy(suggestions => (
       <div className="Suggestions">{suggestions}</div>
     ));
-    const ac = mount(
+    const ac = mount((
       <AutoComplete renderSuggestions={renderSuggestions}>
         <Completion trigger="?" getCompletions={getCompletions} />
       </AutoComplete>
-    );
+    ));
     type(ac.find('input'), 'Something');
     expect(renderSuggestions).to.not.have.been.calledWith();
     type(ac.find('input'), 'Now ?Autoc');
@@ -105,11 +105,11 @@ describe('<AutoComplete />', () => {
     const renderSuggestions = suggestions => (
       <div className="Suggestions">{suggestions}</div>
     );
-    const ac = mount(
+    const ac = mount((
       <AutoComplete renderSuggestions={renderSuggestions}>
         <Completion trigger="!" getCompletions={() => ['a', 'b', 'c']} />
       </AutoComplete>
-    );
+    ));
     const input = ac.find('input');
     type(input, 'Something');
     input.simulate('blur');
@@ -119,11 +119,11 @@ describe('<AutoComplete />', () => {
   it('inserts completions when pressing Tab/Enter', () => {
     const getText = spy(value => value);
     const completions = ['Completed'];
-    const ac = mount(
+    const ac = mount((
       <AutoComplete>
         <Completion trigger="!" completions={completions} getText={getText} />
       </AutoComplete>
-    );
+    ));
 
     const input = ac.find('input');
     type(input, 'This Is !Compl');
@@ -141,15 +141,15 @@ describe('<AutoComplete />', () => {
   it('inserts completions when clicking a suggestion element', () => {
     // eslint-disable-next-line react/prop-types
     const renderSuggestion = ({ key, select }) => (
-      <div className="suggestion" key={key} onClick={select} />
+      <button className="suggestion" key={key} onClick={select} />
     );
     const getText = spy(value => value);
     const completions = ['complete'];
-    const ac = mount(
+    const ac = mount((
       <AutoComplete renderSuggestion={renderSuggestion}>
         <Completion trigger="!" completions={completions} getText={getText} />
       </AutoComplete>
-    );
+    ));
 
     type(ac.find('input'), 'Click will !com');
     ac.find('.suggestion').simulate('click');
@@ -160,11 +160,11 @@ describe('<AutoComplete />', () => {
 
   it('allows selecting the desired suggestion using up/down keys', () => {
     const completions = ['abc', 'abcabc', 'abcabcabc'];
-    const ac = mount(
+    const ac = mount((
       <AutoComplete>
         <Completion trigger="!" minLength={2} completions={completions} />
       </AutoComplete>
-    );
+    ));
 
     const input = ac.find('input');
     type(input, '!a');
@@ -179,11 +179,11 @@ describe('<AutoComplete />', () => {
 
   it('wraps around when using up/down keys to navigate beyond first/last items', () => {
     const completions = ['abc', 'abcabc', 'abcabcabc'];
-    const ac = mount(
+    const ac = mount((
       <AutoComplete>
         <Completion trigger="!" minLength={2} completions={completions} />
       </AutoComplete>
-    );
+    ));
 
     const input = ac.find('input');
     type(input, '!a');
@@ -202,18 +202,15 @@ describe('<Completion />', () => {
       'More test',
       'Test Two',
     ];
-    const cp = shallow(
+    const cp = shallow((
       <Completion trigger="@" completions={usernames} />
-    ).instance();
-    expect(
-      cp.props.getCompletions('@Tes', cp.props)
-    ).to.eql(['Test', 'Test Two']);
-    expect(
-      cp.props.getCompletions('@Nothing', cp.props)
-    ).to.eql([]);
+    )).instance();
+    expect(cp.props.getCompletions('@Tes', cp.props))
+      .to.eql(['Test', 'Test Two']);
+    expect(cp.props.getCompletions('@Nothing', cp.props))
+      .to.eql([]);
     // case insensitive
-    expect(
-      cp.props.getCompletions('@MORE TE', cp.props)
-    ).to.eql(['More test']);
+    expect(cp.props.getCompletions('@MORE TE', cp.props))
+      .to.eql(['More test']);
   });
 });
