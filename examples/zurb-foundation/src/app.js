@@ -3,12 +3,13 @@ import { render } from 'react-dom';
 import AutoComplete, { Completion } from 'react-abstract-autocomplete';
 import { users } from '../../exampleData';
 
-// eslint-disable-next-line react/prop-types
+/* eslint-disable react/prop-types, jsx-a11y/href-no-hash */
 const renderSuggestion = ({ key, selected, value, select }) => (
   <li key={key} className={selected ? 'active' : ''}>
     <a href="#" onClick={select}>{value}</a>
   </li>
 );
+/* eslint-enable react/prop-types, jsx-a11y/href-no-hash */
 
 const App = () => (
   <div className="row">

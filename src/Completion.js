@@ -63,7 +63,7 @@ class Completion extends React.Component {
      * completions are known beforehand. If provided, a default `getCompletions`
      * function that searches this array will be used.
      */
-    completions: React.PropTypes.array,
+    completions: React.PropTypes.array, // eslint-disable-line react/forbid-prop-types
 
     /**
      * Transform a completion value to a string that will be inserted into the

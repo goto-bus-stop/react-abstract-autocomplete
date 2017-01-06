@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Completion from './Completion';
 import escapeStringRegExp from 'escape-string-regexp';
+import Completion from './Completion';
 
 function getRegex({ regex, trigger }) {
   if (regex) {
@@ -33,7 +33,7 @@ class AutoComplete extends React.Component {
     /**
      * Props to pass to the input component.
      */
-    inputProps: React.PropTypes.object,
+    inputProps: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
 
     /**
      * Function that renders a single suggestion. This can be overridden for
@@ -100,6 +100,7 @@ class AutoComplete extends React.Component {
       type: 'text',
     },
     renderSuggestion: ({ key, value, selected, select }) => (
+      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
         key={key}
         style={{ fontWeight: selected ? 'bold' : 'normal' }}
@@ -127,7 +128,7 @@ class AutoComplete extends React.Component {
     }
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { children, limit } = this.props;
     const { value, selectionEnd } = event.target;
     const completingValue = value.slice(0, selectionEnd);
@@ -182,7 +183,7 @@ class AutoComplete extends React.Component {
     this.sendUpdate(value);
   };
 
-  handleKeyDown = event => {
+  handleKeyDown = (event) => {
     const { selectedSuggestion, currentSuggestions } = this.state;
     if (event.key === 'ArrowUp') {
       event.preventDefault();
@@ -206,7 +207,7 @@ class AutoComplete extends React.Component {
       const { target } = event;
       setTimeout(
         () => this.handleChange({ target }),
-        1
+        1,
       );
     }
 
@@ -217,7 +218,7 @@ class AutoComplete extends React.Component {
     }
   };
 
-  handleFocus = event => {
+  handleFocus = (event) => {
     this.setState({ open: true });
     const { inputProps } = this.props;
     if (inputProps.onFocus) {
@@ -225,7 +226,7 @@ class AutoComplete extends React.Component {
     }
   };
 
-  handleBlur = event => {
+  handleBlur = (event) => {
     // Make sure the blur event is handled _after_ any possible suggestion click
     // events. Otherwise, the suggestions list might close before a click event
     // is registered, and click-completing would be impossible.
