@@ -78,7 +78,7 @@ class AutoComplete extends React.Component {
      * Current string value of the input component. Optional, useful for
      * controlled inputs. Passed down to the input component as the value prop.
      */
-    value: React.PropTypes.string,
+    value: React.PropTypes.string, // eslint-disable-line react/require-default-props
 
     /**
      * Initial string value for uncontrolled inputs.
@@ -112,6 +112,8 @@ class AutoComplete extends React.Component {
     renderSuggestions: suggestions => <div>{suggestions}</div>,
     children: [],
     limit: 15,
+    defaultValue: '',
+    onUpdate: () => {},
   };
 
   state = {
@@ -123,9 +125,7 @@ class AutoComplete extends React.Component {
   };
 
   sendUpdate(value) {
-    if (this.props.onUpdate) {
-      this.props.onUpdate(value);
-    }
+    this.props.onUpdate(value);
   }
 
   handleChange = (event) => {
