@@ -80,12 +80,15 @@ class Completion extends React.Component {
 
   static defaultProps = {
     minLength: 3,
+    regex: null,
+    renderSuggestion: null,
     getCompletions: (value, { trigger, completions }) => {
       const compare = value.substr(trigger.length).toLowerCase();
       return completions.filter(completion => (
         completion.substr(0, compare.length).toLowerCase() === compare
       ));
     },
+    completions: [],
     getText: (value, { trigger }) => `${trigger}${value} `,
   };
 
