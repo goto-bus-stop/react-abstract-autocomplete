@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { spy } from 'sinon';
-import { expect } from 'chai';
-import {
-  mount,
-  shallow,
-} from 'enzyme';
+import chai, { expect } from 'chai';
+import sinonChai from 'sinon-chai';
+import { mount, shallow } from 'enzyme';
 import AutoComplete, { Completion } from '../src';
+
+chai.use(sinonChai);
 
 function type(input, value) {
   const cursorPosition = value.indexOf('|');
