@@ -26,8 +26,8 @@ class Completion extends React.Component {
      *
      * Uses the first capture group as the value to be completed, or the full
      * match if there are no capture groups. For example:
-     *  - /.*(@.*?)$/ + "Hello @ReA" → "@ReA"
-     *  - /\w+$/ + "This is sp" → "sp"
+     *  - `/.*(@.*?)$/` + "Hello @ReA" → "@ReA"
+     *  - `/\w+$/` + "This is sp" → "sp"
      */
     regex: React.PropTypes.instanceOf(RegExp),
 
@@ -42,7 +42,7 @@ class Completion extends React.Component {
      * @param {boolean} suggestion.selected - Whether this suggestion is
      *     currently selected.
      * @param {function} suggestion.select - Autocomplete this suggestion.
-     * @returns {element}
+     * @returns {ReactElement}
      */
     renderSuggestion: React.PropTypes.func,
 

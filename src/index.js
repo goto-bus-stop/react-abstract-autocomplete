@@ -49,7 +49,7 @@ class AutoComplete extends React.Component {
      * @param {boolean} suggestion.selected - Whether this suggestion is
      *     currently selected.
      * @param {function} suggestion.select - Autocomplete this suggestion.
-     * @returns {element}
+     * @returns {ReactElement}
      */
     renderSuggestion: React.PropTypes.func,
 
@@ -60,7 +60,7 @@ class AutoComplete extends React.Component {
      *
      * @param {Array} suggestions - Array of children rendered by
      *     `renderSuggestion`.
-     * @returns {element}
+     * @returns {ReactElement}
      */
     renderSuggestions: React.PropTypes.func,
 
