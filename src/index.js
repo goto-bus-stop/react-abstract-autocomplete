@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import escapeStringRegExp from 'escape-string-regexp';
 import Completion from './Completion';
 
@@ -25,15 +26,15 @@ class AutoComplete extends React.Component {
      *
      * The component should accept `value`, `onChange` and `onKeyDown` props.
      */
-    inputComponent: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.func,
+    inputComponent: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
     ]),
 
     /**
      * Props to pass to the input component.
      */
-    inputProps: React.PropTypes.object, // eslint-disable-line react/forbid-prop-types
+    inputProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
 
     /**
      * Function that renders a single suggestion. This can be overridden for
@@ -51,7 +52,7 @@ class AutoComplete extends React.Component {
      * @param {function} suggestion.select - Autocomplete this suggestion.
      * @returns {ReactElement}
      */
-    renderSuggestion: React.PropTypes.func,
+    renderSuggestion: PropTypes.func,
 
     /**
      * Function that renders the suggestions list.
@@ -62,28 +63,28 @@ class AutoComplete extends React.Component {
      *     `renderSuggestion`.
      * @returns {ReactElement}
      */
-    renderSuggestions: React.PropTypes.func,
+    renderSuggestions: PropTypes.func,
 
     /**
      * Completion types as [`<Completion />`][Completion] elements.
      */
-    children: React.PropTypes.node,
+    children: PropTypes.node,
 
     /**
      * The maximum amount of suggestions to show.
      */
-    limit: React.PropTypes.number,
+    limit: PropTypes.number,
 
     /**
      * Current string value of the input component. Optional, useful for
      * controlled inputs. Passed down to the input component as the value prop.
      */
-    value: React.PropTypes.string, // eslint-disable-line react/require-default-props
+    value: PropTypes.string, // eslint-disable-line react/require-default-props
 
     /**
      * Initial string value for uncontrolled inputs.
      */
-    defaultValue: React.PropTypes.string,
+    defaultValue: PropTypes.string,
 
     /**
      * Fired when the input component's value changes. Use this for controlled
@@ -91,7 +92,7 @@ class AutoComplete extends React.Component {
      *
      * @param {string} newValue
      */
-    onUpdate: React.PropTypes.func,
+    onUpdate: PropTypes.func,
   };
 
   static defaultProps = {

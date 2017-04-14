@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * `<Completion />` elements describe different data sources. Multiple can be
@@ -9,15 +10,15 @@ class Completion extends React.Component {
     /**
      * String that triggers this completion type.
      */
-    trigger: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.instanceOf(RegExp),
+    trigger: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.instanceOf(RegExp),
     ]).isRequired,
 
     /**
      * Minimum amount of characters typed before suggestions will be given.
      */
-    minLength: React.PropTypes.number,
+    minLength: PropTypes.number,
 
     /**
      * Regex to extract the current completion value from the input. Can also be
@@ -29,7 +30,7 @@ class Completion extends React.Component {
      *  - `/.*(@.*?)$/` + "Hello @ReA" → "@ReA"
      *  - `/\w+$/` + "This is sp" → "sp"
      */
-    regex: React.PropTypes.instanceOf(RegExp),
+    regex: PropTypes.instanceOf(RegExp),
 
     /**
      * Function that renders a single suggestion.
@@ -44,7 +45,7 @@ class Completion extends React.Component {
      * @param {function} suggestion.select - Autocomplete this suggestion.
      * @returns {ReactElement}
      */
-    renderSuggestion: React.PropTypes.func,
+    renderSuggestion: PropTypes.func,
 
     /**
      * Get an array of possible completions.
@@ -56,14 +57,14 @@ class Completion extends React.Component {
      * @param {Object} props - Props of this `<Completion />` element.
      * @returns {Array.<*>}
      */
-    getCompletions: React.PropTypes.func,
+    getCompletions: PropTypes.func,
 
     /**
      * Optional array of completion values. This can be used if all possible
      * completions are known beforehand. If provided, a default `getCompletions`
      * function that searches this array will be used.
      */
-    completions: React.PropTypes.array, // eslint-disable-line react/forbid-prop-types
+    completions: PropTypes.array, // eslint-disable-line react/forbid-prop-types
 
     /**
      * Transform a completion value to a string that will be inserted into the
@@ -75,7 +76,7 @@ class Completion extends React.Component {
      * @param {Object} props - Props of this `<Completion />` element.
      * @returns {string}
      */
-    getText: React.PropTypes.func,
+    getText: PropTypes.func,
   };
 
   static defaultProps = {
