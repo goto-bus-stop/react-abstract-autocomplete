@@ -11,13 +11,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "babel-loader": "^6.2.5",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.15.1"
-  },
   "dependencies": {
-    "material-ui": "^0.15.4",
-    "react-tap-event-plugin": "^1.0.0"
+    "material-ui": "^0.17.1",
+    "react-tap-event-plugin": "^2.0.1"
   }
 }

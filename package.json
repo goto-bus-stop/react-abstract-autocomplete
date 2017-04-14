@@ -10,13 +10,27 @@
     "index.cjs.js"
   ],
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "npm-run-all build examples:install examples:build",
     "build": "rollup -c rollup.config.js",
     "watch": "watch 'npm run build && echo ok' src",
     "docs": "node tools/generate-docs.js > generated-docs.md",
     "lint": "eslint .",
-    "install-examples": "cd ./examples && npm run install",
-    "test": "npm run lint && mocha"
+    "mocha": "mocha",
+    "build:barebones": "webpack -p --config examples/barebones/webpack.config.js",
+    "build:material-ui": "webpack -p --config examples/material-ui/webpack.config.js",
+    "build:react-bootstrap": "webpack -p --config examples/react-bootstrap/webpack.config.js",
+    "build:zurb-foundation": "webpack -p --config examples/zurb-foundation/webpack.config.js",
+    "example:barebones": "webpack-dev-server --config examples/barebones/webpack.config.js",
+    "example:material-ui": "webpack-dev-server --config examples/material-ui/webpack.config.js",
+    "example:react-bootstrap": "webpack-dev-server --config examples/react-bootstrap/webpack.config.js",
+    "example:zurb-foundation": "webpack-dev-server --config examples/zurb-foundation/webpack.config.js",
+    "install:barebones": "exit 0",
+    "install:material-ui": "cd examples/material-ui && npm install",
+    "install:react-bootstrap": "cd examples/react-bootstrap && npm install",
+    "install:zurb-foundation": "cd examples/zurb-foundation && npm install",
+    "examples:build": "npm-run-all build:*",
+    "examples:install": "npm-run-all install:*",
+    "test": "npm-run-all lint mocha"
   },
   "repository": "goto-bus-stop/react-abstract-autocomplete",
   "keywords": [
@@ -38,6 +52,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.4.1",
     "babel-plugin-external-helpers": "^6.8.0",
     "babel-plugin-transform-class-properties": "^6.11.5",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
@@ -57,6 +72,7 @@
     "jsdom": "^9.11.0",
     "jsdom-global": "^2.1.1",
     "mocha": "^3.2.0",
+    "npm-run-all": "^4.0.2",
     "react": "^15.5.4",
     "react-docgen": "^2.10.0",
     "react-dom": "^15.5.4",
@@ -65,6 +81,8 @@
     "rollup-plugin-babel": "^2.6.1",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
-    "watch": "^1.0.1"
+    "watch": "^1.0.1",
+    "webpack": "^2.3.3",
+    "webpack-dev-server": "^2.4.2"
   }
 }
