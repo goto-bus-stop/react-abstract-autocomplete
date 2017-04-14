@@ -1,11 +1,7 @@
-import * as React from 'react';
-import { spy } from 'sinon';
-import chai, { expect } from 'chai';
-import sinonChai from 'sinon-chai';
+import React from 'react';
+import expect, { createSpy } from 'expect';
 import { mount, shallow } from 'enzyme';
 import AutoComplete, { Completion } from '../src';
-
-chai.use(sinonChai);
 
 function type(input, value) {
   const cursorPosition = value.indexOf('|');
@@ -24,8 +20,8 @@ function type(input, value) {
 describe('<AutoComplete />', () => {
   it('renders a normal text input by default', () => {
     const ac = shallow(<AutoComplete />);
-    expect(ac.find('input')).to.have.length(1);
-    expect(ac.containsMatchingElement(<input type="text" />)).to.equal(true);
+    expect(ac.find('input').length).toEqual(1);
+    expect(ac.containsMatchingElement(<input type="text" />)).toEqual(true);
   });
 
   it('renders custom input components', () => {
@@ -37,7 +33,7 @@ describe('<AutoComplete />', () => {
     const ac = shallow((
       <AutoComplete inputComponent={CustomInput} />
     ));
-    expect(ac.containsMatchingElement(<CustomInput />)).to.equal(true);
+    expect(ac.containsMatchingElement(<CustomInput />)).toEqual(true);
   });
 
   it('renders the defaultValue by default', () => {
@@ -45,7 +41,7 @@ describe('<AutoComplete />', () => {
     const ac = shallow((
       <AutoComplete defaultValue={testValue} />
     ));
-    expect(ac.find('input').props().value).to.equal(testValue);
+    expect(ac.find('input').props().value).toEqual(testValue);
   });
 
   it('responds to controlled-style value props', () => {
@@ -54,22 +50,22 @@ describe('<AutoComplete />', () => {
     const ac = mount((
       <AutoComplete value={valueOne} />
     ));
-    expect(ac.find('input').props().value).to.equal(valueOne);
+    expect(ac.find('input').props().value).toEqual(valueOne);
     ac.setProps({ value: valueTwo });
-    expect(ac.find('input').props().value).to.equal(valueTwo);
+    expect(ac.find('input').props().value).toEqual(valueTwo);
   });
 
   it('fires onUpdate events when the input value is changed', () => {
-    const onUpdate = spy();
+    const onUpdate = createSpy();
     const ac = mount((
       <AutoComplete defaultValue="Text" onUpdate={onUpdate} />
     ));
     type(ac.find('input'), 'Text Edited');
-    expect(onUpdate).to.have.been.calledWith('Text Edited');
+    expect(onUpdate).toHaveBeenCalledWith('Text Edited');
   });
 
   it('asks for completions when the input value contains a trigger character', () => {
-    const getCompletions = spy(() => []);
+    const getCompletions = createSpy().andReturn([]);
     const ac = mount((
       <AutoComplete>
         <Completion
@@ -80,14 +76,15 @@ describe('<AutoComplete />', () => {
     ));
     const testValue = 'Hello @Som';
     type(ac.find('input'), testValue);
-    expect(getCompletions).to.have.been.calledWithMatch('@Som', {});
+    expect(getCompletions).toHaveBeenCalled();
+    expect(getCompletions.calls[0].arguments[0]).toEqual('@Som');
   });
 
   it('renders Suggestions when a Completion responds', () => {
-    const getCompletions = spy(() => [
+    const getCompletions = createSpy().andReturn([
       'Autocompleted!',
     ]);
-    const renderSuggestions = spy(suggestions => (
+    const renderSuggestions = createSpy().andCall(suggestions => (
       <div className="Suggestions">{suggestions}</div>
     ));
     const ac = mount((
@@ -96,9 +93,9 @@ describe('<AutoComplete />', () => {
       </AutoComplete>
     ));
     type(ac.find('input'), 'Something');
-    expect(renderSuggestions).to.not.have.been.calledWith();
+    expect(renderSuggestions).toNotHaveBeenCalled();
     type(ac.find('input'), 'Now ?Autoc');
-    expect(renderSuggestions).to.have.been.calledWith();
+    expect(renderSuggestions).toHaveBeenCalled();
   });
 
   it('hides suggestions when input is unfocused', () => {
@@ -113,11 +110,11 @@ describe('<AutoComplete />', () => {
     const input = ac.find('input');
     type(input, 'Something');
     input.simulate('blur');
-    expect(ac.find('.Suggestions')).to.have.length(0);
+    expect(ac.find('.Suggestions').length).toEqual(0);
   });
 
   it('inserts completions when pressing Tab/Enter', () => {
-    const getText = spy(value => value);
+    const getText = createSpy().andCall(value => value);
     const completions = ['Completed'];
     const ac = mount((
       <AutoComplete>
@@ -128,14 +125,16 @@ describe('<AutoComplete />', () => {
     const input = ac.find('input');
     type(input, 'This Is !Compl');
     input.simulate('keydown', { key: 'Enter' });
-    expect(getText).to.have.been.calledWith('Completed');
-    expect(input.prop('value')).to.equal('This Is Completed');
+    expect(getText).toHaveBeenCalled();
+    expect(getText.calls[0].arguments[0]).toEqual('Completed');
+    expect(input.prop('value')).toEqual('This Is Completed');
 
     getText.reset();
     type(input, 'This Is !Compl');
     input.simulate('keydown', { key: 'Tab' });
-    expect(getText).to.have.been.calledWith('Completed');
-    expect(input.prop('value')).to.equal('This Is Completed');
+    expect(getText).toHaveBeenCalled();
+    expect(getText.calls[0].arguments[0]).toEqual('Completed');
+    expect(input.prop('value')).toEqual('This Is Completed');
   });
 
   it('inserts completions when clicking a suggestion element', () => {
@@ -143,7 +142,7 @@ describe('<AutoComplete />', () => {
     const renderSuggestion = ({ key, select }) => (
       <button className="suggestion" key={key} onClick={select} />
     );
-    const getText = spy(value => value);
+    const getText = createSpy().andCall(value => value);
     const completions = ['complete'];
     const ac = mount((
       <AutoComplete renderSuggestion={renderSuggestion}>
@@ -154,8 +153,9 @@ describe('<AutoComplete />', () => {
     type(ac.find('input'), 'Click will !com');
     ac.find('.suggestion').simulate('click');
 
-    expect(getText).to.have.been.calledWith('complete');
-    expect(ac.find('input').prop('value')).to.equal('Click will complete');
+    expect(getText).toHaveBeenCalled();
+    expect(getText.calls[0].arguments[0]).toEqual('complete');
+    expect(ac.find('input').prop('value')).toEqual('Click will complete');
   });
 
   it('allows selecting the desired suggestion using up/down keys', () => {
@@ -168,13 +168,13 @@ describe('<AutoComplete />', () => {
 
     const input = ac.find('input');
     type(input, '!a');
-    expect(ac.state('selectedSuggestion')).to.equal(0);
+    expect(ac.state('selectedSuggestion')).toEqual(0);
     input.simulate('keydown', { key: 'ArrowDown' });
-    expect(ac.state('selectedSuggestion')).to.equal(1);
+    expect(ac.state('selectedSuggestion')).toEqual(1);
     input.simulate('keydown', { key: 'ArrowDown' });
-    expect(ac.state('selectedSuggestion')).to.equal(2);
+    expect(ac.state('selectedSuggestion')).toEqual(2);
     input.simulate('keydown', { key: 'ArrowUp' });
-    expect(ac.state('selectedSuggestion')).to.equal(1);
+    expect(ac.state('selectedSuggestion')).toEqual(1);
   });
 
   it('wraps around when using up/down keys to navigate beyond first/last items', () => {
@@ -187,11 +187,11 @@ describe('<AutoComplete />', () => {
 
     const input = ac.find('input');
     type(input, '!a');
-    expect(ac.state('selectedSuggestion')).to.equal(0);
+    expect(ac.state('selectedSuggestion')).toEqual(0);
     input.simulate('keydown', { key: 'ArrowUp' });
-    expect(ac.state('selectedSuggestion')).to.equal(2);
+    expect(ac.state('selectedSuggestion')).toEqual(2);
     input.simulate('keydown', { key: 'ArrowDown' });
-    expect(ac.state('selectedSuggestion')).to.equal(0);
+    expect(ac.state('selectedSuggestion')).toEqual(0);
   });
 });
 
@@ -206,11 +206,11 @@ describe('<Completion />', () => {
       <Completion trigger="@" completions={usernames} />
     )).instance();
     expect(cp.props.getCompletions('@Tes', cp.props))
-      .to.eql(['Test', 'Test Two']);
+      .toMatch(['Test', 'Test Two']);
     expect(cp.props.getCompletions('@Nothing', cp.props))
-      .to.eql([]);
+      .toMatch([]);
     // case insensitive
     expect(cp.props.getCompletions('@MORE TE', cp.props))
-      .to.eql(['More test']);
+      .toMatch(['More test']);
   });
 });
