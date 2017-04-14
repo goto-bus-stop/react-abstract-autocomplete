@@ -1,6 +1,6 @@
 language: node_js
-before_script:
-  - npm run install-examples
+sudo: false
 node_js:
   - "4"
   - "6"
+  - "7"
