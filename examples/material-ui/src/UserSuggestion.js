@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
 import { ListItem } from 'material-ui/List';
 
@@ -19,9 +20,9 @@ const UserSuggestion = ({
 );
 
 UserSuggestion.propTypes = {
-  value: React.PropTypes.string.isRequired,
-  selected: React.PropTypes.bool.isRequired,
-  select: React.PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  selected: PropTypes.bool.isRequired,
+  select: PropTypes.func.isRequired,
 };
 
 export default UserSuggestion;

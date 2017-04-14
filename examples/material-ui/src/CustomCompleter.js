@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import AutoComplete, { Completion } from 'react-abstract-autocomplete';
 import TextField from 'material-ui/TextField';
 import UserSuggestion from './UserSuggestion';
@@ -36,8 +37,8 @@ const CustomCompleter = ({
 );
 
 CustomCompleter.propTypes = {
-  users: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  emojiNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  users: PropTypes.arrayOf(PropTypes.string).isRequired,
+  emojiNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default CustomCompleter;

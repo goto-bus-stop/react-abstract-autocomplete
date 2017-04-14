@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import AutoComplete, { Completion } from 'react-abstract-autocomplete';
 import Grid from 'react-bootstrap/lib/Grid';
