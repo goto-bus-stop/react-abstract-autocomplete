@@ -40,8 +40,8 @@
   ],
   "author": "Renée Kooi <renee@kooi.me>",
   "license": "MIT",
-  "bugs": "https://github.com/goto-bus-stop/react-dailymotion/issues",
-  "homepage": "https://github.com/goto-bus-stop/react-dailymotion#readme",
+  "bugs": "https://github.com/goto-bus-stop/react-abstract-autocomplete/issues",
+  "homepage": "https://github.com/goto-bus-stop/react-abstract-autocomplete#readme",
   "dependencies": {
     "babel-runtime": "^6.20.0",
     "escape-string-regexp": "^1.0.5",
