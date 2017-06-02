@@ -28,7 +28,7 @@
     "install:material-ui": "cd examples/material-ui && npm install",
     "install:react-bootstrap": "cd examples/react-bootstrap && npm install",
     "install:zurb-foundation": "cd examples/zurb-foundation && npm install",
-    "examples:build": "npm-run-all build:*",
+    "examples:build": "npm-run-all --parallel build:*",
     "examples:install": "npm-run-all install:*",
     "test": "npm-run-all lint mocha"
   },
