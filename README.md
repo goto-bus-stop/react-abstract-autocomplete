@@ -1,5 +1,7 @@
 # react-abstract-autocomplete
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/goto-bus-stop/react-abstract-autocomplete.svg)](https://greenkeeper.io/)
+
 Bring-Your-Own-UI autocomplete component for React.
 
 [Examples] - [Examples source code] - [Installation] - [Usage] - [License]
