@@ -78,7 +78,7 @@
     "react-docgen": "^2.10.0",
     "react-dom": "^15.5.4",
     "react-test-renderer": "^15.5.4",
-    "rollup": "^0.45.2",
+    "rollup": "^0.46.0",
     "rollup-plugin-babel": "^3.0.1",
     "watch": "^1.0.1",
     "webpack": "^3.5.2",
