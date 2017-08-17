@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
  * used in the same [`<AutoComplete />`][AutoComplete] component.
  */
 class Completion extends React.Component {
+  /* eslint-disable react/no-unused-prop-types */
   static propTypes = {
     /**
      * String that triggers this completion type.
