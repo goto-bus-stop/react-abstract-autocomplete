@@ -16,11 +16,10 @@ const externals = Object.keys(pkg.dependencies)
   .concat(Object.keys(pkg.peerDependencies));
 
 export default {
-  entry: './src/index.js',
-  exports: 'named',
-  targets: [
-    { format: 'cjs', dest: 'index.cjs.js' },
-    { format: 'es', dest: 'index.es.js' },
+  input: './src/index.js',
+  output: [
+    { format: 'cjs', file: 'index.cjs.js', exports: 'named' },
+    { format: 'es', file: 'index.es.js' },
   ],
   plugins: [
     babel(babelrc),
