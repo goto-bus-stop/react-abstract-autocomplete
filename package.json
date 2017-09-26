@@ -74,7 +74,7 @@
     "jsdom-global": "^3.0.2",
     "mocha": "^3.5.0",
     "npm-run-all": "^4.0.2",
-    "react": "^15.5.4",
+    "react": "^16.0.0",
     "react-docgen": "^2.10.0",
     "react-dom": "^15.5.4",
     "react-test-renderer": "^15.5.4",
