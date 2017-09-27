@@ -1,7 +1,12 @@
 import React from 'react';
 import expect, { createSpy } from 'expect';
-import { mount, shallow } from 'enzyme';
+import enzyme, { mount, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import AutoComplete, { Completion } from '../src';
+
+enzyme.configure({
+  adapter: new Adapter(),
+});
 
 function type(input, value) {
   const cursorPosition = value.indexOf('|');
@@ -9,12 +14,12 @@ function type(input, value) {
 
   input.simulate('focus');
 
-  Object.assign(input.node, {
+  Object.assign(input.instance(), {
     value: value.replace('|', ''),
     selectionEnd,
   });
 
-  input.simulate('change', { target: input.node });
+  input.simulate('change', { target: input.instance() });
 }
 
 describe('<AutoComplete />', () => {
