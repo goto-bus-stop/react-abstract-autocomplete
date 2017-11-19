@@ -100,12 +100,18 @@ class AutoComplete extends React.Component {
     inputProps: {
       type: 'text',
     },
-    renderSuggestion: ({ key, value, selected, select }) => (
+    renderSuggestion: ({
+      key,
+      value,
+      selected,
+      select,
+    }) => (
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
         key={key}
         style={{ fontWeight: selected ? 'bold' : 'normal' }}
         onClick={select}
+        onKeyDown={event => event.key === 'Enter' && select()}
       >
         {value}
       </div>
