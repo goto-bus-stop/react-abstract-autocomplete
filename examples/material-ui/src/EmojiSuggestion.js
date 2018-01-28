@@ -20,7 +20,7 @@ const EmojiSuggestion = ({
       <Avatar src={emojiUrl(value)} />
     }
     primaryText={value}
-    onTouchTap={select}
+    onClick={select}
     style={selected ? { background: 'rgba(127, 127, 127, 0.1)' } : {}}
   />
 );

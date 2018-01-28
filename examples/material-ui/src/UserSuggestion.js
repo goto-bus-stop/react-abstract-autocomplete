@@ -14,7 +14,7 @@ const UserSuggestion = ({
       <Avatar src={`https://sigil.cupcake.io/${btoa(value)}`} />
     }
     primaryText={value}
-    onTouchTap={select}
+    onClick={select}
     style={selected ? { background: 'rgba(127, 127, 127, 0.1)' } : {}}
   />
 );
