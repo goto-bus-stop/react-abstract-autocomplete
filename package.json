@@ -1,6 +1,6 @@
 {
   "name": "react-abstract-autocomplete",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Bring-Your-Own-UI autocomplete component for React.",
   "main": "index.cjs.js",
   "jsnext:main": "index.es.js",
