@@ -1,10 +1,14 @@
+/* eslint-disable react/prefer-stateless-function */
+import React from 'react';
 import PropTypes from 'prop-types';
 
 /**
  * `<Completion />` elements describe different data sources. Multiple can be
  * used in the same [`<AutoComplete />`][AutoComplete] component.
  */
-const Completion = () => null;
+class Completion extends React.Component {
+  render() { return null; }
+}
 
 /* eslint-disable react/no-unused-prop-types */
 Completion.propTypes = {
