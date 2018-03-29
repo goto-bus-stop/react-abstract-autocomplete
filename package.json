@@ -80,8 +80,9 @@
     "rollup": "^0.57.0",
     "rollup-plugin-babel": "^4.0.0-beta.3",
     "watch": "^1.0.1",
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.11.2"
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
   },
   "greenkeeper": {
     "ignore": [
