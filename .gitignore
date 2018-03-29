@@ -1,7 +1,6 @@
 node_modules
 bundle.js
 bundle.js.map
-/lib
 /generated-docs.md
-/index.*.js
+/dist
 package-lock.json
