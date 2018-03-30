@@ -1,5 +1,3 @@
 node_modules
 bundle.js
-lib
-/index.cjs.js
-/index.es.js
+dist
