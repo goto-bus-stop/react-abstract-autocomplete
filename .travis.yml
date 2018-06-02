@@ -4,3 +4,16 @@ node_js:
   - stable
   - 8
   - 6
+
+before_deploy:
+  - mkdir _deploy
+  - cp -R examples _deploy/
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  local-dir: _deploy
+  on:
+    branch: master
+    node: stable
