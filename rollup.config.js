@@ -8,8 +8,14 @@ const externals = Object.keys(pkg.dependencies)
 export default {
   input: './src/index.js',
   output: [
-    { format: 'cjs', file: pkg.main, exports: 'named' },
-    { format: 'es', file: pkg.module },
+    {
+      format: 'cjs',
+      file: pkg.main,
+      exports: 'named',
+      interop: false,
+      sourcemap: true,
+    },
+    { format: 'es', file: pkg.module, sourcemap: true },
   ],
   plugins: [
     babel(),
