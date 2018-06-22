@@ -13,8 +13,14 @@ const CustomCompleter = ({
   <AutoComplete
     inputComponent={TextField}
     inputProps={{ id: 'input', floatingLabelText: 'Type here...' }}
-    renderSuggestion={props => <UserSuggestion {...props} />}
-    renderSuggestions={children => <SuggestionsList>{children}</SuggestionsList>}
+    renderSuggestion={props => (
+      <UserSuggestion {...props} />
+    )}
+    renderSuggestions={children => (
+      <SuggestionsList>
+        {children}
+      </SuggestionsList>
+    )}
   >
     <Completion
       trigger="@"

@@ -5,7 +5,9 @@ import { users } from '../../exampleData';
 
 const App = () => (
   <div>
-    <h1>Barebones example</h1>
+    <h1>
+      Barebones example
+    </h1>
     <AutoComplete>
       <Completion trigger="@" completions={users} minLength={1} />
     </AutoComplete>

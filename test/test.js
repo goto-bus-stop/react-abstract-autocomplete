@@ -32,7 +32,9 @@ describe('<AutoComplete />', () => {
   it('renders custom input components', () => {
     const CustomInput = props => (
       <div className="Super Special Input">
-        Your text: <input type="email" {...props} />
+        Your text:
+        {' '}
+        <input type="email" {...props} />
       </div>
     );
     const ac = shallow((
@@ -90,7 +92,9 @@ describe('<AutoComplete />', () => {
       'Autocompleted!',
     ]);
     const renderSuggestions = createSpy().andCall(suggestions => (
-      <div className="Suggestions">{suggestions}</div>
+      <div className="Suggestions">
+        {suggestions}
+      </div>
     ));
     const ac = mount((
       <AutoComplete renderSuggestions={renderSuggestions}>
@@ -105,7 +109,9 @@ describe('<AutoComplete />', () => {
 
   it('hides suggestions when input is unfocused', () => {
     const renderSuggestions = suggestions => (
-      <div className="Suggestions">{suggestions}</div>
+      <div className="Suggestions">
+        {suggestions}
+      </div>
     );
     const ac = mount((
       <AutoComplete renderSuggestions={renderSuggestions}>
@@ -145,7 +151,7 @@ describe('<AutoComplete />', () => {
   it('inserts completions when clicking a suggestion element', () => {
     // eslint-disable-next-line react/prop-types
     const renderSuggestion = ({ key, select }) => (
-      <button className="suggestion" key={key} onClick={select} />
+      <button type="button" className="suggestion" key={key} onClick={select} />
     );
     const getText = createSpy().andCall(value => value);
     const completions = ['complete'];
