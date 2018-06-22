@@ -11,7 +11,9 @@ const renderSuggestion = ({
   select,
 }) => (
   <li key={key} className={selected ? 'active' : ''}>
-    <a href="#" onClick={select}>{value}</a>
+    <a href="#" onClick={select}>
+      {value}
+    </a>
   </li>
 );
 /* eslint-enable react/prop-types, jsx-a11y/href-no-hash, jsx-a11y/anchor-is-valid */
@@ -19,11 +21,15 @@ const renderSuggestion = ({
 const App = () => (
   <div className="row">
     <div className="small-12 columns">
-      <h1>Zurb Foundation example</h1>
+      <h1>
+        Zurb Foundation example
+      </h1>
       <AutoComplete
         renderSuggestion={renderSuggestion}
         renderSuggestions={suggestions => (
-          <ul className="vertical menu">{suggestions}</ul>
+          <ul className="vertical menu">
+            {suggestions}
+          </ul>
         )}
       >
         <Completion

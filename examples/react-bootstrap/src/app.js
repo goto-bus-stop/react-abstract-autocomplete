@@ -11,12 +11,16 @@ import { users } from '../../exampleData';
 
 // eslint-disable-next-line react/prop-types
 const renderSuggestion = ({ key, selected, value }) => (
-  <MenuItem key={key} active={selected}>{value}</MenuItem>
+  <MenuItem key={key} active={selected}>
+    {value}
+  </MenuItem>
 );
 
 const renderSuggestions = suggestions => (
   <div className="dropdown open">
-    <ul className="dropdown-menu">{suggestions}</ul>
+    <ul className="dropdown-menu">
+      {suggestions}
+    </ul>
   </div>
 );
 
@@ -32,18 +36,22 @@ class App extends React.Component {
   };
 
   render() {
+    const { value } = this.state;
+
     return (
       <Grid>
         <Row>
           <Col sm={12}>
-            <PageHeader>React-Bootstrap example</PageHeader>
+            <PageHeader>
+              React-Bootstrap example
+            </PageHeader>
           </Col>
         </Row>
         <Row>
           <Col sm={12}>
             <AutoComplete
               inputComponent={FormControl}
-              value={this.state.value}
+              value={value}
               onUpdate={this.handleUpdate}
               renderSuggestion={renderSuggestion}
               renderSuggestions={renderSuggestions}

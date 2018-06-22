@@ -33,7 +33,9 @@ class App extends React.Component {
   };
 
   get isDark() {
-    return this.state.theme === darkBaseTheme;
+    const { theme } = this.state;
+
+    return theme === darkBaseTheme;
   }
 
   switchTheme = () => {
@@ -43,11 +45,15 @@ class App extends React.Component {
   };
 
   render() {
-    const styles = getStyles(this.state.theme, this.isDark);
+    const { theme } = this.state;
+
+    const styles = getStyles(theme, this.isDark);
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(this.state.theme)}>
+      <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
         <div style={styles.wrapper}>
-          <h1 style={styles.header}>Material-ui example</h1>
+          <h1 style={styles.header}>
+            Material-ui example
+          </h1>
           <div>
             <RaisedButton label="Change theme" onClick={this.switchTheme} />
           </div>

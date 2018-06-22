@@ -116,7 +116,11 @@ class AutoComplete extends React.Component {
         {value}
       </div>
     ),
-    renderSuggestions: suggestions => <div>{suggestions}</div>,
+    renderSuggestions: suggestions => (
+      <div>
+        {suggestions}
+      </div>
+    ),
     children: [],
     limit: 15,
     defaultValue: '',
@@ -125,15 +129,12 @@ class AutoComplete extends React.Component {
 
   state = {
     open: false,
+    // eslint-disable-next-line react/destructuring-assignment
     value: this.props.defaultValue || '',
     input: null,
     currentSuggestions: [],
     selectedSuggestion: 0,
   };
-
-  sendUpdate(value) {
-    this.props.onUpdate(value);
-  }
 
   handleChange = (event) => {
     const { children, limit } = this.props;
@@ -195,8 +196,9 @@ class AutoComplete extends React.Component {
     if (event.key === 'ArrowUp') {
       event.preventDefault();
       if (currentSuggestions.length > 0) {
-        const nextSuggestion = selectedSuggestion > 0 ? selectedSuggestion - 1 :
-          currentSuggestions.length - 1;
+        const nextSuggestion = selectedSuggestion > 0
+          ? selectedSuggestion - 1
+          : currentSuggestions.length - 1;
         this.setState({ selectedSuggestion: nextSuggestion });
       }
     } else if (event.key === 'ArrowDown') {
@@ -270,11 +272,19 @@ class AutoComplete extends React.Component {
     }
   };
 
+  sendUpdate(value) {
+    const { onUpdate } = this.props;
+
+    onUpdate(value);
+  }
+
   renderSuggestion({ type, completion }, idx) {
+    const { renderSuggestion } = this.props;
     const { input, selectedSuggestion } = this.state;
+
     // Use the Completion type's suggestion renderer, or the default if it
     // doesn't have a custom one.
-    const render = type.renderSuggestion || this.props.renderSuggestion;
+    const render = type.renderSuggestion || renderSuggestion;
     return render({
       key: `${idx}`,
       value: completion,
@@ -295,13 +305,15 @@ class AutoComplete extends React.Component {
     const {
       open,
       currentSuggestions,
+      value: stateValue,
     } = this.state;
     const {
       inputComponent: InputComponent,
       inputProps,
+      value: propsValue,
     } = this.props;
 
-    const value = 'value' in this.props ? this.props.value : this.state.value;
+    const value = propsValue !== undefined ? propsValue : stateValue;
 
     return (
       <span>

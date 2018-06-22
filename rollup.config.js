@@ -20,6 +20,5 @@ export default {
   plugins: [
     babel(),
   ],
-  external: id =>
-    externals.some(external => id.split('/')[0] === external),
+  external: id => externals.some(external => id.split('/')[0] === external),
 };
