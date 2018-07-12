@@ -10,7 +10,7 @@
     "src"
   ],
   "scripts": {
-    "prepublish": "npm-run-all build examples:install examples:build",
+    "prepare": "npm-run-all build examples:install examples:build",
     "build": "rollup -c rollup.config.js",
     "watch": "watch 'npm run build && echo ok' src",
     "docs": "node tools/generate-docs.js > generated-docs.md",
