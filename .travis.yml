@@ -5,6 +5,9 @@ node_js:
   - 8
   - 6
 
+before_script:
+  - 'if [ $TRAVIS_NODE_VERSION = 6 ]; then npm run prepare; fi'
+
 before_deploy:
   - mkdir _deploy
   - cp -R examples _deploy/
