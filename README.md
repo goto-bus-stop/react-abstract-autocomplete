@@ -12,8 +12,20 @@ npm install --save react-abstract-autocomplete
 
 ## Usage
 
-For usage examples, check out the [Examples] page, and the projects in the
-[examples/][Examples source code] directory.
+```js
+import AutoComplete, { Completion } from 'react-abstract-autocomplete';
+
+const users = [];
+const chatCommands = [];
+
+<AutoComplete inputComponent="input">
+  <Completion trigger="@" completions={users} minLength={1} />
+  <Completion trigger="/" completions={chatCommands} minLength={1} />
+</AutoComplete>
+```
+
+For full usage examples, check out the [Examples] page, and the projects
+in the [examples/][Examples source code] directory.
 
 <!-- Docs are generated using `npm run docs` and copy-pasted here: -->
 
