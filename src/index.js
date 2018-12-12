@@ -136,6 +136,8 @@ class AutoComplete extends React.Component {
     selectedSuggestion: 0,
   };
 
+  spanRef = Math.random().toString(36);
+
   handleChange = (event) => {
     const { children, limit } = this.props;
     const { value, selectionEnd } = event.target;
@@ -236,7 +238,12 @@ class AutoComplete extends React.Component {
   };
 
   handleBlur = (event) => {
-    if (event.relatedTarget) return;
+    var parent = event.relatedTarget;
+    while (parent) {
+        if (parent.id === this.spanRef) return;
+        parent = parent.parentNode;
+    }
+    
     this.setState({ open: false });
     const { inputProps } = this.props;
     if (inputProps.onBlur) {
@@ -311,7 +318,7 @@ class AutoComplete extends React.Component {
     const value = propsValue !== undefined ? propsValue : stateValue;
 
     return (
-      <span onBlur={this.handleBlur} onFocus={this.handleFocus} >
+      <span onBlur={this.handleBlur} onFocus={this.handleFocus} id={this.spanRef}>
         <InputComponent
           {...inputProps}
           value={value}
