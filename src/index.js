@@ -238,12 +238,12 @@ class AutoComplete extends React.Component {
   };
 
   handleBlur = (event) => {
-    var parent = event.relatedTarget;
+    let parent = event.relatedTarget;
     while (parent) {
-        if (parent.id === this.spanRef) return;
-        parent = parent.parentNode;
+      if (parent.id === this.spanRef) return;
+      parent = parent.parentNode;
     }
-    
+
     this.setState({ open: false });
     const { inputProps } = this.props;
     if (inputProps.onBlur) {
