@@ -136,6 +136,8 @@ class AutoComplete extends React.Component {
     selectedSuggestion: 0,
   };
 
+  spanRef = Math.random().toString(36);
+
   handleChange = (event) => {
     const { children, limit } = this.props;
     const { value, selectionEnd } = event.target;
@@ -236,17 +238,17 @@ class AutoComplete extends React.Component {
   };
 
   handleBlur = (event) => {
-    // Make sure the blur event is handled _after_ any possible suggestion click
-    // events. Otherwise, the suggestions list might close before a click event
-    // is registered, and click-completing would be impossible.
-    // It's a bit of a hack and hopefully there is a better way!
-    setTimeout(() => {
-      this.setState({ open: false });
-      const { inputProps } = this.props;
-      if (inputProps.onBlur) {
-        inputProps.onBlur(event);
-      }
-    }, 16);
+    let parent = event.relatedTarget;
+    while (parent) {
+      if (parent.id === this.spanRef) return;
+      parent = parent.parentNode;
+    }
+
+    this.setState({ open: false });
+    const { inputProps } = this.props;
+    if (inputProps.onBlur) {
+      inputProps.onBlur(event);
+    }
   };
 
   select = (idx, input) => {
@@ -316,14 +318,12 @@ class AutoComplete extends React.Component {
     const value = propsValue !== undefined ? propsValue : stateValue;
 
     return (
-      <span>
+      <span onBlur={this.handleBlur} onFocus={this.handleFocus} id={this.spanRef}>
         <InputComponent
           {...inputProps}
           value={value}
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
         />
         {open && currentSuggestions.length > 0 ? this.renderSuggestions() : null}
       </span>
