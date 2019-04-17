@@ -43,7 +43,7 @@
   "bugs": "https://github.com/goto-bus-stop/react-abstract-autocomplete/issues",
   "homepage": "https://github.com/goto-bus-stop/react-abstract-autocomplete#readme",
   "dependencies": {
-    "escape-string-regexp": "^1.0.5",
+    "escape-string-regexp": "^2.0.0",
     "prop-types": "^15.6.2"
   },
   "peerDependencies": {
