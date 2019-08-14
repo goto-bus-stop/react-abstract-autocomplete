@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import AutoComplete, { Completion } from 'react-abstract-autocomplete';
 import { users } from '../../exampleData';
 
-/* eslint-disable react/prop-types, jsx-a11y/href-no-hash, jsx-a11y/anchor-is-valid */
+/* eslint-disable react/prop-types, jsx-a11y/anchor-is-valid */
 const renderSuggestion = ({
   key,
   selected,
@@ -16,7 +16,7 @@ const renderSuggestion = ({
     </a>
   </li>
 );
-/* eslint-enable react/prop-types, jsx-a11y/href-no-hash, jsx-a11y/anchor-is-valid */
+/* eslint-enable react/prop-types, jsx-a11y/anchor-is-valid */
 
 const App = () => (
   <div className="row">

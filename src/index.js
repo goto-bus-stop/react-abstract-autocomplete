@@ -19,124 +19,20 @@ function setCursor(input, position) {
  *
  */
 class AutoComplete extends React.Component {
-  static propTypes = {
-    /**
-     * Component to use for rendering the input element. Uses native `<input />`
-     * by default.
-     *
-     * The component should accept `value`, `onChange` and `onKeyDown` props.
-     */
-    inputComponent: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func,
-    ]),
-
-    /**
-     * Props to pass to the input component.
-     */
-    inputProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-
-    /**
-     * Function that renders a single suggestion. This can be overridden for
-     * individual Completion types, in case they need custom rendering.
-     *
-     * @default `<div key={key} onClick={select}>{value}</div>`
-     *
-     * @param {Object} suggestion - Suggestion descriptor.
-     * @param {string} suggestion.key - Unique key for the suggestion element.
-     *     See [Dynamic Children](https://facebook.github.io/react/docs/multiple-components.html#dynamic-children)
-     *     for details.
-     * @param {*} suggestion.value - Completion value of this suggestion.
-     * @param {boolean} suggestion.selected - Whether this suggestion is
-     *     currently selected.
-     * @param {function} suggestion.select - Autocomplete this suggestion.
-     * @returns {ReactElement}
-     */
-    renderSuggestion: PropTypes.func,
-
-    /**
-     * Function that renders the suggestions list.
-     *
-     * @default `<div>{suggestions}</div>`
-     *
-     * @param {Array} suggestions - Array of children rendered by
-     *     `renderSuggestion`.
-     * @returns {ReactElement}
-     */
-    renderSuggestions: PropTypes.func,
-
-    /**
-     * Completion types as [`<Completion />`][Completion] elements.
-     */
-    children: PropTypes.node,
-
-    /**
-     * The maximum amount of suggestions to show.
-     */
-    limit: PropTypes.number,
-
-    /**
-     * Current string value of the input component. Optional, useful for
-     * controlled inputs. Passed down to the input component as the value prop.
-     */
-    value: PropTypes.string, // eslint-disable-line react/require-default-props
-
-    /**
-     * Initial string value for uncontrolled inputs.
-     */
-    defaultValue: PropTypes.string,
-
-    /**
-     * Fired when the input component's value changes. Use this for controlled
-     * inputs.
-     *
-     * @param {string} newValue
-     */
-    onUpdate: PropTypes.func,
-  };
-
-  static defaultProps = {
-    inputComponent: 'input',
-    inputProps: {
-      type: 'text',
-    },
-    renderSuggestion: ({
-      key,
-      value,
-      selected,
-      select,
-    }) => (
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div
-        key={key}
-        style={{ fontWeight: selected ? 'bold' : 'normal' }}
-        onClick={select}
-        onKeyDown={(event) => event.key === 'Enter' && select()}
-      >
-        {value}
-      </div>
-    ),
-    renderSuggestions: (suggestions) => (
-      <div>
-        {suggestions}
-      </div>
-    ),
-    children: [],
-    limit: 15,
-    defaultValue: '',
-    onUpdate: () => {},
-  };
-
-  state = {
-    open: false,
-    // eslint-disable-next-line react/destructuring-assignment
-    value: this.props.defaultValue || '',
-    input: null,
-    currentSuggestions: [],
-    selectedSuggestion: 0,
-  };
-
   spanRef = Math.random().toString(36);
+
+  constructor(props) {
+    super(props);
+
+    const { defaultValue } = props;
+    this.state = {
+      open: false,
+      value: defaultValue || '',
+      input: null,
+      currentSuggestions: [],
+      selectedSuggestion: 0,
+    };
+  }
 
   handleChange = (event) => {
     const { children, limit } = this.props;
@@ -320,7 +216,7 @@ class AutoComplete extends React.Component {
     return (
       <span onBlur={this.handleBlur} onFocus={this.handleFocus} id={this.spanRef}>
         <InputComponent
-          {...inputProps}
+          {...inputProps} // eslint-disable-line react/jsx-props-no-spreading
           value={value}
           onChange={this.handleChange}
           onKeyDown={this.handleKeyDown}
@@ -329,6 +225,118 @@ class AutoComplete extends React.Component {
       </span>
     );
   }
+}
+
+AutoComplete.defaultProps = {
+  inputComponent: 'input',
+  inputProps: {
+    type: 'text',
+  },
+  /* eslint-disable react/prop-types */
+  renderSuggestion: ({
+    key,
+    value,
+    selected,
+    select,
+  }) => (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div
+      key={key}
+      style={{ fontWeight: selected ? 'bold' : 'normal' }}
+      onClick={select}
+      onKeyDown={(event) => event.key === 'Enter' && select()}
+    >
+      {value}
+    </div>
+  ),
+  renderSuggestions: (suggestions) => (
+    <div>
+      {suggestions}
+    </div>
+  ),
+  /* eslint-enable react/prop-types */
+  children: [],
+  limit: 15,
+  defaultValue: '',
+  onUpdate: () => {},
+};
+
+if (process.env.NODE_ENV !== 'production') {
+  AutoComplete.propTypes = {
+    /**
+     * Component to use for rendering the input element. Uses native `<input />`
+     * by default.
+     *
+     * The component should accept `value`, `onChange` and `onKeyDown` props.
+     */
+    inputComponent: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
+    ]),
+
+    /**
+     * Props to pass to the input component.
+     */
+    inputProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+
+    /**
+     * Function that renders a single suggestion. This can be overridden for
+     * individual Completion types, in case they need custom rendering.
+     *
+     * @default `<div key={key} onClick={select}>{value}</div>`
+     *
+     * @param {Object} suggestion - Suggestion descriptor.
+     * @param {string} suggestion.key - Unique key for the suggestion element.
+     *     See [Dynamic Children](https://facebook.github.io/react/docs/multiple-components.html#dynamic-children)
+     *     for details.
+     * @param {*} suggestion.value - Completion value of this suggestion.
+     * @param {boolean} suggestion.selected - Whether this suggestion is
+     *     currently selected.
+     * @param {function} suggestion.select - Autocomplete this suggestion.
+     * @returns {ReactElement}
+     */
+    renderSuggestion: PropTypes.func,
+
+    /**
+     * Function that renders the suggestions list.
+     *
+     * @default `<div>{suggestions}</div>`
+     *
+     * @param {Array} suggestions - Array of children rendered by
+     *     `renderSuggestion`.
+     * @returns {ReactElement}
+     */
+    renderSuggestions: PropTypes.func,
+
+    /**
+     * Completion types as [`<Completion />`][Completion] elements.
+     */
+    children: PropTypes.node,
+
+    /**
+     * The maximum amount of suggestions to show.
+     */
+    limit: PropTypes.number,
+
+    /**
+     * Current string value of the input component. Optional, useful for
+     * controlled inputs. Passed down to the input component as the value prop.
+     */
+    value: PropTypes.string, // eslint-disable-line react/require-default-props
+
+    /**
+     * Initial string value for uncontrolled inputs.
+     */
+    defaultValue: PropTypes.string,
+
+    /**
+     * Fired when the input component's value changes. Use this for controlled
+     * inputs.
+     *
+     * @param {string} newValue
+     */
+    onUpdate: PropTypes.func,
+  };
 }
 
 export { Completion };

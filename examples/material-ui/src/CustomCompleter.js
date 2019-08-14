@@ -6,6 +6,7 @@ import UserSuggestion from './UserSuggestion';
 import EmojiSuggestion from './EmojiSuggestion';
 import SuggestionsList from './SuggestionsList';
 
+/* eslint-disable react/jsx-props-no-spreading */
 const CustomCompleter = ({
   emojiNames,
   users,

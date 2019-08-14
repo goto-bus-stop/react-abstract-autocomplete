@@ -34,7 +34,10 @@ describe('<AutoComplete />', () => {
       <div className="Super Special Input">
         Your text:
         {' '}
-        <input type="email" {...props} />
+        <input
+          type="email"
+          {...props} // eslint-disable-line react/jsx-props-no-spreading
+        />
       </div>
     );
     const ac = shallow((
@@ -151,6 +154,7 @@ describe('<AutoComplete />', () => {
   it('inserts completions when clicking a suggestion element', () => {
     // eslint-disable-next-line react/prop-types
     const renderSuggestion = ({ key, select }) => (
+      // eslint-disable-next-line jsx-a11y/control-has-associated-label
       <button type="button" className="suggestion" key={key} onClick={select} />
     );
     const getText = createSpy().andCall((value) => value);
