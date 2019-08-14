@@ -111,12 +111,12 @@ class AutoComplete extends React.Component {
         key={key}
         style={{ fontWeight: selected ? 'bold' : 'normal' }}
         onClick={select}
-        onKeyDown={event => event.key === 'Enter' && select()}
+        onKeyDown={(event) => event.key === 'Enter' && select()}
       >
         {value}
       </div>
     ),
-    renderSuggestions: suggestions => (
+    renderSuggestions: (suggestions) => (
       <div>
         {suggestions}
       </div>
@@ -144,7 +144,7 @@ class AutoComplete extends React.Component {
     const completingValue = value.slice(0, selectionEnd);
 
     const completionTypes = React.Children
-      .map(children, child => child.props)
+      .map(children, (child) => child.props)
       .reduce((types, completionType) => {
         const rx = getRegex(completionType);
         const match = rx.exec(completingValue);
@@ -171,7 +171,7 @@ class AutoComplete extends React.Component {
       const completions = type.getCompletions(matchingValue, type).slice(0, currentLimit);
       return [
         ...available,
-        ...completions.map(completion => ({
+        ...completions.map((completion) => ({
           completion,
           ...childProps,
         })),

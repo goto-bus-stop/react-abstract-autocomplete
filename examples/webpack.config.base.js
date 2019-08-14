@@ -1,6 +1,6 @@
 const path = require('path');
 
-module.exports = dirname => ({
+module.exports = (dirname) => ({
   entry: path.join(dirname, './src/app.js'),
 
   output: {

@@ -16,7 +16,7 @@ const renderSuggestion = ({ key, selected, value }) => (
   </MenuItem>
 );
 
-const renderSuggestions = suggestions => (
+const renderSuggestions = (suggestions) => (
   <div className="dropdown open">
     <ul className="dropdown-menu">
       {suggestions}

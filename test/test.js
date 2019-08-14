@@ -30,7 +30,7 @@ describe('<AutoComplete />', () => {
   });
 
   it('renders custom input components', () => {
-    const CustomInput = props => (
+    const CustomInput = (props) => (
       <div className="Super Special Input">
         Your text:
         {' '}
@@ -91,7 +91,7 @@ describe('<AutoComplete />', () => {
     const getCompletions = createSpy().andReturn([
       'Autocompleted!',
     ]);
-    const renderSuggestions = createSpy().andCall(suggestions => (
+    const renderSuggestions = createSpy().andCall((suggestions) => (
       <div className="Suggestions">
         {suggestions}
       </div>
@@ -108,7 +108,7 @@ describe('<AutoComplete />', () => {
   });
 
   it('hides suggestions when input is unfocused', () => {
-    const renderSuggestions = suggestions => (
+    const renderSuggestions = (suggestions) => (
       <div className="Suggestions">
         {suggestions}
       </div>
@@ -125,7 +125,7 @@ describe('<AutoComplete />', () => {
   });
 
   it('inserts completions when pressing Tab/Enter', () => {
-    const getText = createSpy().andCall(value => value);
+    const getText = createSpy().andCall((value) => value);
     const completions = ['Completed'];
     const ac = mount((
       <AutoComplete>
@@ -153,7 +153,7 @@ describe('<AutoComplete />', () => {
     const renderSuggestion = ({ key, select }) => (
       <button type="button" className="suggestion" key={key} onClick={select} />
     );
-    const getText = createSpy().andCall(value => value);
+    const getText = createSpy().andCall((value) => value);
     const completions = ['complete'];
     const ac = mount((
       <AutoComplete renderSuggestion={renderSuggestion}>

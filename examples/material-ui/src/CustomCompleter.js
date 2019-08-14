@@ -13,10 +13,10 @@ const CustomCompleter = ({
   <AutoComplete
     inputComponent={TextField}
     inputProps={{ id: 'input', floatingLabelText: 'Type here...' }}
-    renderSuggestion={props => (
+    renderSuggestion={(props) => (
       <UserSuggestion {...props} />
     )}
-    renderSuggestions={children => (
+    renderSuggestions={(children) => (
       <SuggestionsList>
         {children}
       </SuggestionsList>
@@ -32,12 +32,12 @@ const CustomCompleter = ({
       completions={emojiNames}
       getCompletions={(value, { completions }) => {
         const compare = value.toLowerCase();
-        return completions.filter(completion => (
+        return completions.filter((completion) => (
           completion.substr(0, compare.length).toLowerCase() === compare
         )).slice(0, 20);
       }}
-      getText={value => `${value} `}
-      renderSuggestion={props => <EmojiSuggestion {...props} />}
+      getText={(value) => `${value} `}
+      renderSuggestion={(props) => <EmojiSuggestion {...props} />}
     />
   </AutoComplete>
 );

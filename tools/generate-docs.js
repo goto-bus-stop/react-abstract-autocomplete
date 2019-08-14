@@ -18,7 +18,7 @@ function generatePropType(type) {
     case 'instanceOf':
       return type.value;
     case 'enum': {
-      const values = type.value.map(v => v.value).join('<br>&nbsp;');
+      const values = type.value.map((v) => v.value).join('<br>&nbsp;');
       return `enum:<br>&nbsp;${values}<br>`;
     }
     case 'union': {
@@ -35,7 +35,7 @@ function generateDescription(parsed, tags, type) {
   // must be eliminated to prevent markdown mayhem.
   const jsDocText = parsed.description.replace(/\n\n/g, '<br>').replace(/\n/g, ' ');
 
-  if (parsed.tags.some(tag => tag.title === 'ignore')) {
+  if (parsed.tags.some((tag) => tag.title === 'ignore')) {
     return null;
   }
   let signature = '';
@@ -48,12 +48,12 @@ function generateDescription(parsed, tags, type) {
 
     signature += '<br><br>**Signature:**<br>`function(';
     signature += parsedArgs
-      .filter(tag => tag.name.indexOf('.') === -1)
-      .map(tag => `${tag.name}: ${tag.type.name}`)
+      .filter((tag) => tag.name.indexOf('.') === -1)
+      .map((tag) => `${tag.name}: ${tag.type.name}`)
       .join(', ');
     signature += `) => ${parsedReturns.type.name}\`<br>`;
     signature += parsedArgs
-      .map(tag => `*${tag.name}:* ${tag.description}`)
+      .map((tag) => `*${tag.name}:* ${tag.description}`)
       .join('<br>');
     if (parsedReturns.description) {
       signature += `<br> *returns* (${parsedReturns.type.name}): ${parsedReturns.description}`;

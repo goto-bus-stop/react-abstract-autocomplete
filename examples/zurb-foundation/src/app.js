@@ -26,7 +26,7 @@ const App = () => (
       </h1>
       <AutoComplete
         renderSuggestion={renderSuggestion}
-        renderSuggestions={suggestions => (
+        renderSuggestions={(suggestions) => (
           <ul className="vertical menu">
             {suggestions}
           </ul>
@@ -36,7 +36,7 @@ const App = () => (
           trigger="@"
           completions={users}
           minLength={1}
-          getText={name => `User: ${name} `}
+          getText={(name) => `User: ${name} `}
         />
       </AutoComplete>
     </div>
