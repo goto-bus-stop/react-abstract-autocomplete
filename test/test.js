@@ -30,11 +30,14 @@ describe('<AutoComplete />', () => {
   });
 
   it('renders custom input components', () => {
-    const CustomInput = props => (
+    const CustomInput = (props) => (
       <div className="Super Special Input">
         Your text:
         {' '}
-        <input type="email" {...props} />
+        <input
+          type="email"
+          {...props} // eslint-disable-line react/jsx-props-no-spreading
+        />
       </div>
     );
     const ac = shallow((
@@ -91,7 +94,7 @@ describe('<AutoComplete />', () => {
     const getCompletions = createSpy().andReturn([
       'Autocompleted!',
     ]);
-    const renderSuggestions = createSpy().andCall(suggestions => (
+    const renderSuggestions = createSpy().andCall((suggestions) => (
       <div className="Suggestions">
         {suggestions}
       </div>
@@ -108,7 +111,7 @@ describe('<AutoComplete />', () => {
   });
 
   it('hides suggestions when input is unfocused', () => {
-    const renderSuggestions = suggestions => (
+    const renderSuggestions = (suggestions) => (
       <div className="Suggestions">
         {suggestions}
       </div>
@@ -125,7 +128,7 @@ describe('<AutoComplete />', () => {
   });
 
   it('inserts completions when pressing Tab/Enter', () => {
-    const getText = createSpy().andCall(value => value);
+    const getText = createSpy().andCall((value) => value);
     const completions = ['Completed'];
     const ac = mount((
       <AutoComplete>
@@ -151,9 +154,10 @@ describe('<AutoComplete />', () => {
   it('inserts completions when clicking a suggestion element', () => {
     // eslint-disable-next-line react/prop-types
     const renderSuggestion = ({ key, select }) => (
+      // eslint-disable-next-line jsx-a11y/control-has-associated-label
       <button type="button" className="suggestion" key={key} onClick={select} />
     );
-    const getText = createSpy().andCall(value => value);
+    const getText = createSpy().andCall((value) => value);
     const completions = ['complete'];
     const ac = mount((
       <AutoComplete renderSuggestion={renderSuggestion}>

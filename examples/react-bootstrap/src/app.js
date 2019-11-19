@@ -16,7 +16,7 @@ const renderSuggestion = ({ key, selected, value }) => (
   </MenuItem>
 );
 
-const renderSuggestions = suggestions => (
+const renderSuggestions = (suggestions) => (
   <div className="dropdown open">
     <ul className="dropdown-menu">
       {suggestions}
@@ -25,9 +25,13 @@ const renderSuggestions = suggestions => (
 );
 
 class App extends React.Component {
-  state = {
-    value: 'Type something here',
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: 'Type something here',
+    };
+  }
 
   handleUpdate = (value) => {
     this.setState({

@@ -28,9 +28,13 @@ function getStyles(theme, isDark) {
 }
 
 class App extends React.Component {
-  state = {
-    theme: lightBaseTheme,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      theme: lightBaseTheme,
+    };
+  }
 
   get isDark() {
     const { theme } = this.state;

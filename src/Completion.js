@@ -90,7 +90,7 @@ Completion.defaultProps = {
   renderSuggestion: null,
   getCompletions: (value, { trigger, completions }) => {
     const compare = value.substr(trigger.length).toLowerCase();
-    return completions.filter(completion => (
+    return completions.filter((completion) => (
       completion.substr(0, compare.length).toLowerCase() === compare
     ));
   },
