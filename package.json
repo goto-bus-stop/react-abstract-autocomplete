@@ -68,7 +68,7 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "expect": "^1.20.2",
-    "jsdom": "^15.2.1",
+    "jsdom": "^16.0.1",
     "jsdom-global": "^3.0.2",
     "mocha": "^6.0.0",
     "npm-run-all": "^4.1.3",
