@@ -1,4 +1,4 @@
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 
 const pkg = require('./package.json');
 
@@ -18,7 +18,9 @@ export default {
     { format: 'es', file: pkg.module, sourcemap: true },
   ],
   plugins: [
-    babel(),
+    babel({
+      babelHelpers: 'bundled',
+    }),
   ],
   external: (id) => externals.some((external) => id.split('/')[0] === external),
 };
