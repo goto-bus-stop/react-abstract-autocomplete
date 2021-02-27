@@ -15,11 +15,11 @@
     "watch": "watch 'npm run build && echo ok' src",
     "docs": "node tools/generate-docs.js > generated-docs.md",
     "lint": "eslint .",
-    "mocha": "cross-env BABEL_ENV=testing mocha --require test/common.js test/test.js",
-    "build:barebones": "webpack -p --config examples/barebones/webpack.config.js",
-    "build:material-ui": "webpack -p --config examples/material-ui/webpack.config.js",
-    "build:react-bootstrap": "webpack -p --config examples/react-bootstrap/webpack.config.js",
-    "build:zurb-foundation": "webpack -p --config examples/zurb-foundation/webpack.config.js",
+    "tests-only": "cross-env BABEL_ENV=testing mocha --require test/common.js test/test.js",
+    "build:barebones": "webpack --mode production --config examples/barebones/webpack.config.js",
+    "build:material-ui": "webpack --mode production --config examples/material-ui/webpack.config.js",
+    "build:react-bootstrap": "webpack --mode production --config examples/react-bootstrap/webpack.config.js",
+    "build:zurb-foundation": "webpack --mode production --config examples/zurb-foundation/webpack.config.js",
     "example:barebones": "webpack-dev-server --config examples/barebones/webpack.config.js",
     "example:material-ui": "webpack-dev-server --config examples/material-ui/webpack.config.js",
     "example:react-bootstrap": "webpack-dev-server --config examples/react-bootstrap/webpack.config.js",
@@ -30,7 +30,7 @@
     "install:zurb-foundation": "cd examples/zurb-foundation && npm install",
     "examples:build": "npm-run-all --parallel build:*",
     "examples:install": "npm-run-all install:*",
-    "test": "npm-run-all lint mocha"
+    "test": "npm-run-all lint tests-only"
   },
   "repository": "goto-bus-stop/react-abstract-autocomplete",
   "keywords": [

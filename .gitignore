@@ -1,6 +1,7 @@
 node_modules
 bundle.js
 bundle.js.map
+bundle.js.LICENSE.txt
 /generated-docs.md
 /dist
 package-lock.json
