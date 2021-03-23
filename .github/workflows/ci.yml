@@ -22,6 +22,10 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x, 14.x, 15.x]
+        react-version: [17.x]
+        include:
+          - node-version: 14.x
+            react-version: 16.0.0
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -32,5 +36,8 @@ jobs:
           node-version: ${{matrix.node-version}}
       - name: Install dependencies
         run: npm install
+      - name: Install React ${{matrix.react-version}}
+        if: ${{matrix.react-version}} != '17.x'
+        run: npm install --no-save react@${{matrix.react-version}} react-dom@${{matrix.react-version}} react-test-renderer@${{matrix.react-version}}
       - name: Run tests
         run: npm run tests-only

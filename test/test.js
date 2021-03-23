@@ -1,9 +1,11 @@
 import React from 'react';
 import expect, { createSpy } from 'expect';
 import enzyme, { mount, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import React16Adapter from 'enzyme-adapter-react-16';
+import React17Adapter from '@eps1lon/enzyme-adapter-react-17';
 import AutoComplete, { Completion } from '../src';
 
+const Adapter = React.version.startsWith('16') ? React16Adapter : React17Adapter;
 enzyme.configure({
   adapter: new Adapter(),
 });
