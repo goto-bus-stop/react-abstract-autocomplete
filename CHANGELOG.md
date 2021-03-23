@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.2
+* Add React 17.x to acceptable peer dependencies.
+
 ## 2.0.1
 * Fix clicking on suggestions. ([@pdumais](https://github.com/pdumais) in [#160](https://github.com/goto-bus-stop/react-abstract-autocomplete/pull/160))
 
