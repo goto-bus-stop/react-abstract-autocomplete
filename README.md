@@ -1,5 +1,8 @@
 # react-abstract-autocomplete
 
+> This component isn't very accessible and the API predates hooks, which makes it a bit awkward in modern React.
+> I recommend building your own autocomplete on top of something like [downshift](https://github.com/downshift-js/downshift) instead.
+
 Bring-Your-Own-UI autocomplete component for React.
 
 [Examples] - [Examples source code] - [Installation] - [Usage] - [License]
