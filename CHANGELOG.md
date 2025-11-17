@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.5
+This package is not actively maintained anymore and I recommend moving to something else if you run into any bugs.
+
+* Fix crash in some usage patterns with React 19.x.
+
 ## 2.0.4
 This package is not actively maintained anymore and I recommend moving to something else if you run into any bugs.
 
