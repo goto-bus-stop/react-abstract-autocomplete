@@ -40,7 +40,8 @@ class AutoComplete extends React.Component {
     const completingValue = value.slice(0, selectionEnd);
 
     const completionTypes = React.Children
-      .map(children, (child) => child.props)
+      // React 19 no longer applies `defaultProps` when the element is created
+      .map(children, (child) => ({ ...Completion.defaultProps, ...child.props }))
       .reduce((types, completionType) => {
         const rx = getRegex(completionType);
         const match = rx.exec(completingValue);
