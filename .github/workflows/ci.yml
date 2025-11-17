@@ -21,7 +21,7 @@ jobs:
     name: Tests
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x, 18.x, 20.x, 22.x, 24.x]
+        node-version: [14.x, 16.x, 18.x, 20.x, 22.x, 24.x]
         react-version: [17.x]
         include:
           - node-version: 14.x
