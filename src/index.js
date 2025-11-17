@@ -48,7 +48,8 @@ class AutoComplete extends React.Component {
           const matchingValue = match[1] || match[0];
           if (matchingValue.length >= completionType.minLength) {
             types.push({
-              type: completionType,
+	      // React 19 no longer applies `defaultProps` when the element is created
+              type: { ...Completion.defaultProps, ...completionType },
               regex: rx,
               matchingValue,
             });
