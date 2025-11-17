@@ -9,10 +9,10 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
-          node-version: lts/*
+          node-version: '12.x'
       - name: Install
         run: npm install
       - name: Prepare example
